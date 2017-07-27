@@ -796,6 +796,8 @@ public function uvetoBarBonus():Boolean
 	NPCs.length = 0;
 	//Chrissy
 	if (chrissyAtBar()) NPCs.push(chrissyAtTheFreezer);
+	//Willow
+	if (willowAtBar()) NPCs.push(willowAtTheFreezer);
 	// Beatrice
 	if(flags["BEA_QUEST"] != 4)
 	{
