@@ -175,6 +175,7 @@ public function topicHerselfWillow():void
 	clearOutput();
 	author("Archangel99");
 	showWillow();
+	clearMenu();
 	
 	flags["WILLOW_AFFECTION"] += 2;
 	flags["WILLOW_TALK1"] = 1;
@@ -203,13 +204,20 @@ public function topicPastWillow():void
 	clearOutput();
 	author("Archangel99");
 	showWillow();
+	clearMenu();
 	
 	flags["WILLOW_AFFECTION"] += 1;
 	flags["WILLOW_TALK1"] = 1;
 	
+	output("<i>“Tell me a bit about your past, Willow. Parents, siblings, I want to hear it all,”</i> you say, slicing off a bit of steak and bringing the fork to your mouth to take a bite. Mmm. This is delicious...");
+	output("\n\n<i>“Hm? Well... I grew up on Solan 7, a desert planet on the inner edges of the Middle Rim. I had a more or less normal childhood; had pretty much everything a kid could want, and loving parents too. My siblings consisted of one very annoying older brother, and a very doting younger sister. Dad is a hunter, and a pretty good one too,”</i> she says with pride. <i>“There were some wild animals in the deserts that were quite hostile, and the bounty office payed out a hefty sum for the skulls of those animals, so that was pretty much our bread and butter," she eats a bit of her food before continuing. <i>“Mom... Mom was a farmer, and she grew what she could in the sand. And she...”</i> Willow sniffles. <i>“She died a day after I left.”</i>");
+	output("\n\nYou place your hand on hers and offer your condolences.");
+	output("\n\n<i>“N-no. I'm sorry. I shouldn't have gotten so worked up like that...”</i> she murmurs, dabbing at her eyes with a tissue. <i>“Anyway, Dad was a human, Mom was a half-ausar. I turned out looking human, sis and bro got some doggy traits. Chad got a tail and Mina got dog ears," she says, smiling fondly at the memory.");
+	output("\n\n<i>“If I may ask... why did you leave?”</i> You ask tentatively.");
+	output("\n\n<i>“I... I don't want to talk about it,”</i> she says, pushing her food around the plate.");
 	
-	
-	
+	addButton(0, "Drop it", topicPastDropWillow);
+	addButton(0, "Push it", topicPastPushWillow);
 }
 
 public function topicPastPushWillow():void
@@ -217,6 +225,7 @@ public function topicPastPushWillow():void
 	clearOutput();
 	author("Archangel99");
 	showWillow();
+	clearMenu();
 	
 	flags["WILLOW_AFFECTION"] -= 5;
 	
@@ -242,10 +251,12 @@ public function topicPastDropWillow():void
 	clearOutput();
 	author("Archangel99");
 	showWillow();
+	clearMenu();
 	
 	flags["WILLOW_AFFECTION"] += 2;
 	
-	
+	output("<i>“Sorry. I was just curious,”</i> you say.");
+	output("\n\nShe nods. <i>“Anything else you want to talk about?”</i>");
 	
 	if (flags["WILLOW_TALK1"] == undefined || flags["WILLOW_TALK3"] == undefined)
 	{
@@ -259,4 +270,119 @@ public function topicPastDropWillow():void
 	{
 		addButton(0, "Next", finishTalkWillow);
 	}
+}
+
+public function topicHereWillow)():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	flags["WILLOW_AFFECTION"] += 1;
+	flags["WILLOW_TALK3"] = 1;
+	
+	output("<i>“So why are you here on this frozen hell of a planet? Got too bored with all the hot sand?”</i> You ask cheekily, eating more of the food.");
+	output("\n\n<i>“Well, that's one reason!”</i> She laughs. <i>“Plus I wanted to get away from home, you know? It was getting kinda cramped. Aaaand I wanted to earn for myself. Figured I'd come to this place. The toves pay well!”</i> She says, shrugging.");
+	output("\n\nYou nod. Toves being rich, yes they pay well... when it suits them. Otherwise, they would pay you minimum wage, less if they could. You suspect that what she's earning now is less than what her parents were earning back home, yet she seems to be quite happy here.");
+	
+	if (flags["WILLOW_TALK1"] == undefined || flags["WILLOW_TALK2"] == undefined)
+	{
+		addDisabledButton(2, "Why Here");
+		if (flags["WILLOW_TALK1"] == undefined) addButton(0, "Herself", topicHerselfWillow, undefined, "", "");
+		else addDisabledButton(0, "Herself");
+		if (flags["WILLOW_TALK2"] == undefined) addButton(2, "Past", topicPastWillow, undefined, "", "");	
+		else addDisabledButton(2, "Past");
+	}
+	else
+	{
+		addButton(0, "Next", finishTalkWillow);
+	}
+}
+
+public function finishTalkWillow():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	output("\n\nThe two of you quickly finish your meal, you paying the bill like a proper courteous person. You offer your arm to her, which she gladly takes as you lead her out onto the frozen streets of Uveto. She turns to you, looking up as her eyes shine. <i>“I had a really great time tonight, [Name]. I hope we can do this again!”</i> She says, smiling. She looks like she's expecting a little something extra. What do you do?");
+	
+	addButton(0, "Kiss Her", , undefined, "", "");
+	addButton(1, "TeaseKiss", , undefined, "", "");
+	addButton(2, "Leave", , undefined, "", "");
+}
+
+public function willowKissKiss():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	flags["WILLOW_AFFECTION"] += 5;
+	
+	output("You'll be damned if you don't give this girl what she wants... Your finger slides under her chin as you tilt her face up, pressing your lips to hers. You feel a quick gust of air on your cheek, a sign that she had just gasped. You pull away after a few seconds, your finger still resting on her chin. ");
+	output("\n\n<i>“I enjoyed myself too... Willow. We definitely should do this again...”</i> You murmur into her ear, turning to walk away.");
+	
+	addButton(0, "Next", willowDateSexyTime, undefined, "", "");
+}
+
+public function willowTeaseKiss():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	flags["WILLOW_AFFECTION"] += 2;
+	
+	output("You cup her chin and lean in close for a kiss... and brush your lips against hers. <i>“Tease!”</i> she whines, punching you lightly in the chest, but smiling.");
+	output("\n\n<i>“In truth, I had a great time, Willow. We're definitely doing this again," you say, turning to leave.");
+	
+	addButton(0, "Next", willowDateSexyTime, undefined, "", "");
+}
+
+public function willowLeaveKiss():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	output("<i>“Yeah. We definitely should do this again!”</i> you say, turning to leave.");
+	
+	addButton(0, "Next", willowDateSexyTime, undefined, "", "");
+}
+
+public function willowDateSexyTime():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	pc.lust(33);
+	
+	output("<i>“Hooold it right there, " + pc.mf("mister", "miss") + "!”</i> she says. You turn around and raise an eyebrow. <i>“Now what kind of a lady would I be if I didn't let the " + pc.mf("man", "woman") + " who treated me so nicely walk away without a treat...?”</i> She says, beckoning to you with a finger. You grin and walk to her.");
+	output("\n\nShe turns and falls into step beside you, leading you to her apartment, which is a somewhat short and ugly building, with brown walls and hardly any windows to speak of. She climbs the steps, her ass swaying from side, giving you something to fix your eyes on the whole way. She leads you right to the top of the building, where there's a small, somewhat triangular door set into the wall. She takes out a key and unlocks the door, stepping inside and holding the door open for you, grinning and waving her arm as you enter.");
+	output("\n\nYou step inside and take a look around the room. It is rather bare bones, with wood walls and floors; but you can see that Willow has tried to spruce the place up a bit. A vase filled with blue flowers sits on a nightstand next to a double bed, and the shelves of a bookcase on the left side of the room are filled with various books as well as one shining green gem. The back of the room has a window overlooking the frozen settlement, lights glimmering and sparkling in the darkness. The center of the room is occupied by a small round table with two chairs. The small space is lit by a single bulb hanging down from the ceiling, casting a warm yellow glow over everything. You can see a small stove and sink in the corner with an unwashed pan in the sink. The room is warm, lit from underneath by some unknown source of heat.");
+	output("\n\n<i>“Well... Welcome to mi casa!”</i> Willow says. <i>“I know it's not much, but... it's home!”</i> She does a little twirl to show off the room. You smile as you take in the room. Rather homey and cozy, you think to yourself.");
+	output("\n\n<i>“Nice place you got here. I like it,”</i> you say, taking off you [pc.armor] and draping it over the back of one of the chairs. She does the same before turning to you.");
+	output("\n\n<i>“So... What do you wanna do now?”</i> she asks with a sultry expression that leaves no doubt as to what she means.");
+	output("\n\nYou raise an eyebrow at her provocative look and step forward, grabbing her around the waist to pull her closer, your lips locking with hers. Her hands go up to your face, eyes drifting closed as she purrs softly, eagerly returning the kiss.");
+	output("\n\nYour hands hook under her shirt, pulling it up and over her head before tossing it to the side, and then dropping lower to squeeze her ass. Unbuckling her jeans, you pull them down and off, tossing them to join her shirt. Her bra and panties follow soon after, and she looks at you while panting slightly, eyes wide and bright, her naked body yours to do with as you please.");
+	
+	addButton(0, "Vaginal", willowSexVaginal, undefined, "", "");
+	addButton(1, "Anal", willowSexAnal, undefined, "", "");
+}
+
+public function willowSexVaginal():void
+{
+	
+	
+	
+	
+	
 }
