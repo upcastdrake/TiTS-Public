@@ -264,7 +264,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			pc.removePerk("Infertile");
 			pc.cumQualityRaw = 3;
 			if(pc.femininity < 70) pc.femininity = 70;
-			bonusTexts += "You’ve always had an amazing physique, and the best of both genders - the better to colonate new worlds with your young.";
+			bonusTexts += "You’ve always had an amazing physique, and the best of both genders - the better to colonize new worlds with your young.";
 			break;
 		/*Name : Kaeln
 		Gender : male
@@ -304,7 +304,29 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			pc.balls = 2;
 			if(pc.ballSizeRaw < 8) pc.ballSizeRaw = 8;
 			if(pc.breastRows[0].breastRatingRaw > 0) pc.breastRows[0].breastRatingRaw = 0;
-			bonusTexts += "You’ve always been a bit of a monkey. Nothing wrong with that. (Note: Monkey parts aren’t properly supported at the time of coding this character. If this changes down the road, please feel free to log a bug report, and we’ll get this PC updated.)";
+			/*
+			pc.faceType = GLOBAL.TYPE_SIMII;
+			pc.clearFaceFlags();
+			pc.earType = GLOBAL.TYPE_SIMII;
+			pc.armType = GLOBAL.TYPE_SIMII;
+			pc.clearArmFlags();
+			pc.addArmFlag(GLOBAL.FLAG_FURRED);
+			pc.legType = GLOBAL.TYPE_SIMII;
+			pc.legCount = 2;
+			pc.clearLegFlags();
+			pc.addLegFlag(GLOBAL.FLAG_PLANTIGRADE);
+			pc.addLegFlag(GLOBAL.FLAG_FLUFFY);
+			pc.addLegFlag(GLOBAL.FLAG_FURRED);
+			pc.tailCount = 1;
+			pc.tailType = GLOBAL.TYPE_SIMII;
+			pc.clearTailFlags();
+			pc.addTailFlag(GLOBAL.FLAG_LONG);
+			pc.addTailFlag(GLOBAL.FLAG_FLUFFY);
+			pc.addTailFlag(GLOBAL.FLAG_PREHENSILE);
+			pc.shiftCock(0,GLOBAL.TYPE_SIMII);
+			*/
+			bonusTexts += "You’ve always been a bit of a monkey. Nothing wrong with that.";
+			bonusTexts += " (Note: Monkey parts aren’t properly supported at the time of coding this character. If this changes down the road, please feel free to log a bug report, and we’ll get this PC updated.)";
 			break;
 		/*Anon All available shark transformations.
 		Hermaphrodite with normal vagina, normal 8" penis, 2 E cup breasts.
@@ -628,7 +650,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			break;
 		/*Name: Dawn
 		Eyes: Blue
-		Hair: Blond (shoulder length)
+		Hair: Blonde (shoulder length)
 		Genitals: pussy and 12" dick (human)
 		Breasts: DD
 		Height: 5'4"*/
@@ -839,7 +861,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			if(pc.femininity < 70) pc.femininity = 70;
 			pc.breastRows[0].breastRatingRaw = 1;
 			pc.tallness = 48;
-			pc.intelligence(5);	
+			pc.intelligence(5);
 			pc.reflexes(5);
 			pc.aim(5);
 			pc.earType = GLOBAL.TYPE_SYLVAN;
@@ -914,7 +936,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			pc.breastRows[0].breastRatingRaw = 1;
 			pc.milkFullness = 100;
 			pc.milkStorageMultiplier = 2;
-			pc.milkMultiplier = 100;			
+			pc.milkMultiplier = 100;
 			pc.scaleColor = "blue";
 			pc.faceType = GLOBAL.TYPE_SHARK;
 			pc.tailCount = 1;
@@ -1041,7 +1063,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			pc.breastRows[0].nippleType = GLOBAL.NIPPLE_TYPE_FUCKABLE;
 			pc.clitLength = 2;
 			if(!pc.hasVagina()) pc.createVagina();
-			pc.vaginas[0].wetnessRaw = 3;			
+			pc.vaginas[0].wetnessRaw = 3;
 			break;
 		/*Decievedtadpole I suppose I'll go with my preferred character from CoC. Full human around 6ft 5, full masculinity, flat chest, 16 inch package with quad testes. Definitely more smart than strong, so a high intelligence. This is more just for convenience and not wasting my time having to get my character the way I like him.*/
 		case "decievedtadpole":
@@ -1058,7 +1080,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 		/*Name: Junker
 		Physical Description:
 		Dog everything (head, brown fur, tail, ears, etc.), except:
-		medium-long blond hair
+		medium-long blonde hair
 		bipedal hooved legs
 		2x 2"x12" horsedicks
 		4x 2" balls
@@ -1072,7 +1094,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			pc.cocks[0].cLengthRaw = 12;
 			pc.cocks[1].cLengthRaw = 12;
 			pc.balls = 4;
-			pc.ballSizeRaw = 7;			
+			pc.ballSizeRaw = 7;
 			pc.armType = GLOBAL.TYPE_CANINE;
 			pc.clearArmFlags();
 			pc.addArmFlag(GLOBAL.FLAG_FURRED);
@@ -1089,7 +1111,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			pc.earType = GLOBAL.TYPE_CANINE;
 			pc.faceType = GLOBAL.TYPE_CANINE;
 			pc.hairLength = 6;
-			pc.hairColor = "blond";
+			pc.hairColor = "blonde";
 			pc.skinType = GLOBAL.SKIN_TYPE_FUR;
 			break;
 		/*Calvin Snowden You are a 7 foot 0 inch tall human, with a somewhat lithe body and a fair amount of definition. You are currently wearing comfortable clothes and using your fists as a weapon. Your face is human in shape and structure, with albino skin. A set of razor-sharp, retractable shark-teeth fill your mouth and gives your visage a slightly angular appearance. It has a well-defined jawline and a fairly masculine profile. Your shaggy, midnight black hair looks good on you, accentuating your features well. A slowly undulating tongue occasionally slips from between your lips. It hangs nearly two feet long when you let the whole thing slide out, though you can retract it to appear normal. A quartet of prominent horns has broken through your skin. The back pair are longer, and curve back along your head. The front pair protrude forward demonically.
@@ -1136,7 +1158,7 @@ public function customPCCheck(TF:Boolean = false):Boolean
 			if(!pc.hasCock()) pc.createCock();
 			pc.shiftCock(0, GLOBAL.TYPE_DEMONIC);
 			pc.cocks[0].cLengthRaw = 9;
-			pc.ballSizeRaw = 6;			
+			pc.ballSizeRaw = 6;
 			break;
 		case "":
 			if(!TF) break;

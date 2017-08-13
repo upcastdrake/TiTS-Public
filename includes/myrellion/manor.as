@@ -4,7 +4,7 @@ public function myrellionManorEntrance():Boolean
 	
 	var pRace:String = pc.race();
 	
-	if (pRace == "gold myr") output(" They’re both tensed and on-edge as they approach you, and one casts a glance back toward the gate’s security posts, where you assume they have reinforcements. You suppose you’re getting used to this treatment, considering you look like a two-armed gold myr.");	
+	if (pRace == "gold myr") output(" They’re both tensed and on-edge as they approach you, and one casts a glance back toward the gate’s security posts, where you assume they have reinforcements. You suppose you’re getting used to this treatment, considering you look like a two-armed gold myr.");
 	else if (pRace == "red myr") output(" The two of them look confused and apprehensive as they approach you, and you realize they’re probably wondering why a red myr like themselves is visiting the manor without a uniform and bearing strange gear.");
 	else output(" They both look at you with cautious interest as they approach you, and you guess you might be the first alien either of these women has encountered.");
 	
@@ -314,7 +314,7 @@ public function selleraTheWar():void
 	clearOutput();
 	selleraHeader();
 
-	output("Deciding the address the most obvious issue, you ask about the war. Specifically, what it was like practically directing the entire course of it.");
+	output("Deciding to address the most obvious issue, you ask about the war. Specifically, what it was like practically directing the entire course of it.");
 	
 	output("\n\n<i>“I wouldn’t know,”</i> Sellera says simply. When your eyes widen in surprise at her response, she flashes you a sharp smile. <i>“My promotion was recent, Steele. I was given command a week prior to the invasion of Kressia. Lasted three days, that did, and I was at the very front during the first push inside. Started out as an infantry commander fighting the nyrea menace, and I’ll die an infantry commander, field marshal or no.”</i> An emphatic nod punctuates the end of her last sentence.");
 	

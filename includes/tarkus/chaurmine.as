@@ -64,6 +64,10 @@ public function chaurmineOnTarkus():Boolean
 	}
 	return false;
 }
+public function chaurmineAtWastes():Boolean
+{
+	return (flags["CHAURMINE_GUARDED"] == undefined && flags["CHAURMINE_HELPED"] == undefined && (flags["ABANDONED_CHAURMINE"] == undefined || flags["ABANDONED_CHAURMINE"] < 3));
+}
 
 public function encounterChaurmine():void
 {
@@ -356,7 +360,7 @@ public function guardDatScaleDino():void
 	if(pc.isNice()) output("With a raised brow, you try to make it clear that you have no ulterior motives, nor desire to get hands on, you just want to make sure he isn’t taken advantage of in this state");
 	else if(pc.isMischievous()) output("With a cheeky smile, you say you’ll <i>gladly</i> do what you do best, your smile widening as the big brute scowls in ever growing irritation");
 	else output("Crossing your arms over your [pc.chest] with a scoff, you can’t help but note that he isn’t in a favorable position right now to make demands. In fact, you’d rather see how he avoids getting any more fucked than he is right now. As a growl resounds threateningly low from his core, his muscles tense in immediate outrage");
-	output(". <i>“Oh, is that all?”</i> he snarls, tail lashing at the ground. <i>“Well why don’t you-”</i> he is abruptly cut off by a <i>tink</i> <i>tink</i> <i>tink</i>, and you see three syringes, each filled with a viscous pinkish/reddish substance, fall harmlessly to the ground at the metal lizard’s feet. Seeming to forget you exist, the brute slowly turns in the direction the needles must have come from, his scales scraping together with the motion.”</i>");
+	output(". <i>“Oh, is that all?”</i> he snarls, tail lashing at the ground. <i>“Well why don’t you-”</i> he is abruptly cut off by a <i>tink</i> <i>tink</i> <i>tink</i>, and you see three syringes, each filled with a viscous pinkish/reddish substance, fall harmlessly to the ground at the metal lizard’s feet. Seeming to forget you exist, the brute slowly turns in the direction the needles must have come from, his scales scraping together with the motion.");
 
 	output("\n\nIn the direction he turns, you see a raskvel several yards away, cursing as she reloads the gun in her hand with more syringes. As she mumbles something about ‘the hard way’, she jabs a finger in your direction, <i>“You! I see you. Back off, kay? I got dibs,”</i> she orders as the metal brute takes thundering steps towards her, his lips curled in rage. She holds her ground at his approach, though looking at least a little nervous, <i>“Alright big guy, gonna fuck you so hard those fine scales of yours will fall right off...”</i> she mutters more to herself than anyone else. ");
 	if(pc.isNice()) output("Though you said you wanted to help prevent this sort of situation, the raskvel already seems outmatched... And she DID say that she had dibs.");
@@ -413,7 +417,7 @@ public function leaveChaurmineToiletPaper():void
 //Add to the bar of The Mess on Novahome
 
 //Room description
-public function chaurmineBonus(button:Number):Number
+public function chaurmineBonus(button:Number):void
 {
 	if(chaurmineOnTarkus())
 	{
@@ -430,9 +434,7 @@ public function chaurmineBonus(button:Number):Number
 			//[Chaurmine] // Go to Approach Chaurmine
 			addButton(button,"Chaurmine",approachTarkusCivilizedChaurmine);
 		}
-		return (button + 1);
 	}
-	else return (button);
 
 }
 
@@ -463,7 +465,7 @@ public function approachTarkusCivilizedChaurmine():void
 		clearMenu();
 		//[Talk]
 		//[Leave]
-		chaurmineMenu(2);	
+		chaurmineMenu(2);
 	}
 	//Repeating:
 	else
@@ -576,8 +578,11 @@ public function aboutChaurmineTheCunt():void
 	output("\n\nChaurmine nods and leans forward. <i>“Must be some ship, huh?”</i> he rumbles.");
 
 	processTime(15);
-	if(flags["CHAURMINE_HIM_TALKED"] == undefined) chaurmineRelationship(5);
-	flags["CHAURMINE_HIM_TALKED"] = 1;
+	if(flags["CHAURMINE_HIM_TALKED"] == undefined)
+	{
+		flags["CHAURMINE_HIM_TALKED"] = 1;
+		chaurmineRelationship(5);
+	}
 	clearMenu();
 	//[Tarkus] What brought him to Tarkus?
 	addButton(0,"Tarkus",talkToChaurmineAboutTarkus,undefined,"Tarkus","What brought him to Tarkus?");
@@ -769,7 +774,7 @@ public function chaurmineFamilyPush():void
 	output("\n\nYou mention how open he’s been so far, feeling put off by having the ‘book’ close shut in front of you.");
 	output("\n\nThis only earns you a hard frown. His nostrils puff out a gust of hot breath across the table as he folds his heavy arms over his chest dismissively.");
 	if(flags["CHAURMINE_FAMIRY_TALKED"] == 2) chaurmineRelationship(-5);
-	flags["CHAURMINE_FAMIRY_TALKED"] = 2;
+	else flags["CHAURMINE_FAMIRY_TALKED"] = 2;
 	processTime(2);
 	clearMenu();
 	addButton(0,"Next",backToChaurmineMain,1);
@@ -1061,9 +1066,11 @@ public function intimateCatchChaurmine():void
 		output(".");
 	}
 	output("\n\nYou feel him tense up, using his grip to pull you tighter against his blunt head as he grinds against you. <i>“Relax, [pc.name], and I guarantee you you’ll enjoy this,”</i> he sultrily breathes, his words almost hot enough to feel like flames licking at your neck. His hot breath, steamy atmosphere, warm embrace; all these have made you pretty relaxed already, but you let out a sigh and give him a wiggle of your rear anyways. This seems to satisfy the metal lizard, and he abruptly thrusts, your breath catching as he enters with a wet <i>pop</i>.");
-	if(x >= 0) pc.cuntChange(x,chars["CHAURMINE"].cockVolume(0));
-	else pc.buttChange(chars["CHAURMINE"].cockVolume(0));
 
+	var capacity:Number = 0;
+	if(x >= 0) capacity = pc.vaginalCapacity(x);
+	else capacity = pc.analCapacity();
+	
 	//pcIsAnalOrVagVirgin:
 	if((x < 0 && pc.analVirgin) || (x >= 0 && pc.vaginalVirgin))
 	{
@@ -1080,11 +1087,11 @@ public function intimateCatchChaurmine():void
 
 		output("\n\nHe extracts his blunt tip from your [pc.vagOrAss " + x + "] with a grunt and a pop, and waits for your word. Though you take a few moments to collect yourself, you quickly signal your readiness with a wiggle of your [pc.hips], which Chaurmine clutches tight with an amused snort, before thrusting in once again.");
 	}
+	
+	if(x >= 0) pc.cuntChange(x,chars["CHAURMINE"].cockVolume(0));
+	else pc.buttChange(chars["CHAURMINE"].cockVolume(0));
+	
 	output("\n\nYou cry out in shameless ecstasy,");
-
-	var capacity:Number = 0;
-	if(x >= 0) capacity = pc.vaginalCapacity(0);
-	else capacity = pc.analCapacity();
 	//pcOrificeCapacity<135cubedinches:
 	if(capacity < 135)
 	{
@@ -1653,15 +1660,12 @@ public function chaurmineShippyShipTitfuckyDuckyHucky():void
 
 //Novahome Event
 //Unlocks at 50% relationship, taking place in the Eastern Hangar tile just east of Steele’s ship on the Novahome
-public function novahomeChaurmineGoodbyeBonus():void
+public function novahomeChaurmineGoodbyeBonus(btnSlot:int = 0):void
 {
 	//Removes Chaurmine from The Mess
 	//Add to Eastern Hanger tile description
-	if(chaurmineRelationship() >= 50 && flags["CHAURMINE_LOVER"] == undefined && flags["ABANDONED_CHAURMINE"] != 3)
-	{
-		output("\n\nEasily spotted among the droves of much shorter and less metallic people, you see Chaurmine standing near his corvette in the distance. He’s looking at his clunky codex, occasionally interrupted when he shoos away a few curious or grabby raskvel.");
-		addButton(0,"Chaurmine",whatsNewChaurmine,undefined,"Chaurmine","Ask him what’s new.");
-	}
+	output("\n\nEasily spotted among the droves of much shorter and less metallic people, you see Chaurmine standing near his corvette in the distance. He’s looking at his clunky codex, occasionally interrupted when he shoos away a few curious or grabby raskvel.");
+	addButton(btnSlot,"Chaurmine",whatsNewChaurmine,undefined,"Chaurmine","Ask him what’s new.");
 }
 
 //What’s New

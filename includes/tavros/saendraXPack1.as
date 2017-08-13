@@ -838,7 +838,7 @@ public function sx1DoorBreach():void
 	
 	processTime(1);
 
-	//{To Shotgun Guard fite}
+	// To Shotgun Guard fite
 	clearMenu();
 	addButton(0, "Fight!", sx1InitShotguardFight);
 }
@@ -2433,6 +2433,8 @@ public function zilCallGirlBirthMessage():String
 
 public function zilCallGirlPregnancyEnds(deltaT:uint):void
 {
+	if(flags["ZIL_CALLGIRL_EGG_COUNT"] == undefined || flags["ZIL_CALLGIRL_EGG_COUNT"] <= 0) return;
+	
 	_tempZilGirlChildRef = new ZilCallgirlUniqueChild();
 	_tempZilGirlChildRef.RaceType = GLOBAL.TYPE_BEE;
 	_tempZilGirlChildRef.BornTimestamp = GetGameTimestamp() + deltaT;

@@ -3,23 +3,23 @@ import classes.Creature;
 import classes.StorageClass;
 public function pcAppearance(e:MouseEvent = null):void 
 {
-	if(pc.short.length == 0) return;
+	if (pc.short.length == 0) return;
 	
-	if(!userInterface.appearanceButton.isActive)
-	{
-		return;
-	}
-	else if(userInterface.showingPCAppearance)
-	{
-		backToPrimaryOutput();
-		userInterface.showingPCAppearance = false;
-	}
-	else
+	var pButton:SquareButton = (userInterface as GUI).appearanceButton;
+	
+	if (pButton.isActive && !pButton.isHighlighted)
 	{
 		userInterface.showSecondaryOutput();
 		userInterface.appearanceButton.Glow();
 		appearance(pc);
 		userInterface.showingPCAppearance = true;
+		userInterface.DeGlowButtons();
+		pButton.Highlight();
+	}
+	else if (pButton.isActive && pButton.isHighlighted)
+	{
+		backToPrimaryOutput();
+		userInterface.showingPCAppearance = false;
 	}
 }
 
@@ -263,7 +263,12 @@ public function appearance(forTarget:Creature):void
 				else output2(". Instead you have a toothy reptilian muzzle, making your visage rather unsettling");
 			}
 			output2(".");
-			if((target.hasFeathers() || target.hasScales() || target.hasFaceFlag(GLOBAL.FLAG_FEATHERED) || target.hasFaceFlag(GLOBAL.FLAG_SCALED)) && target.hasMuzzle() && !target.hasBeak()) output2(" It is adorned with " + faceFurScales + ", completing the image.");
+			if(target.hasFeathers() || target.hasScales() || target.hasFaceFlag(GLOBAL.FLAG_FEATHERED) || target.hasFaceFlag(GLOBAL.FLAG_SCALED))
+			{
+				output2(" It is adorned with " + faceFurScales);
+				if(target.hasMuzzle() && !target.hasBeak()) output2(", completing the image");
+				output2(".");
+			}
 			else output2(" The lack of feathers on your " + target.skinNoun() + " look rather strange.");
 			if(target.hasBeak() && !target.hasFeathers() && !target.hasFur() && target.isBald()) output2(" You somewhat resemble a vulture.");
 			break;
@@ -1143,13 +1148,16 @@ public function appearance(forTarget:Creature):void
 	//Body Markings
 	if(target.hasStatusEffect("Shark Markings"))
 	{
-		var bodyPts:Array = [" back", " arms", (" " + (target.legCount == 1 ? target.legNoun() : target.legsNoun()))];
-		if(target.hasTail()) bodyPts.push((" " + target.tailDescript(true)));
+		var bodyPts:Array = ["back", "arms", (target.legCount == 1 ? target.legNoun() : target.legsNoun())];
+		if(target.hasTail()) bodyPts.push(target.tailsDescript(true));
 		
-		output2(" You have")
-		if(target.statusEffectv1("Shark Markings") == 1) output2(" " + target.skinAccent + " stripes running all across your body; your" + CompressToList(bodyPts) + ".");
-		else if(target.statusEffectv1("Shark Markings") == 2) output2(" " + target.skinAccent + " spots dotting every part of your body; your" + CompressToList(bodyPts) + ".");
-		else output2(" an off-color blotch on the frontal part of your body, covering your chin, " + target.chestDesc() + ", belly and inner thighs in " + target.skinAccent + ".");
+		output2(" You have");
+		switch(target.statusEffectv1("Shark Markings"))
+		{
+			case 1: output2(" " + target.skinAccent + " stripes running all across your body; your " + CompressToList(bodyPts) + "."); break;
+			case 2: output2(" " + target.skinAccent + " spots dotting every part of your body; your " + CompressToList(bodyPts) + "."); break;
+			default: output2(" an off-color blotch on the frontal part of your body, covering your chin, " + target.chestDesc() + ", belly and inner thighs in " + target.skinAccent + "."); break;
+		}
 	}
 	
 	// Cum Splattered!
@@ -1660,7 +1668,9 @@ public function appearance(forTarget:Creature):void
 			}
 			break;
 		case GLOBAL.TYPE_DEMONIC:
-			output2(" A narrow tail ending in a spaded tip curls down from your " + target.buttDescript() + ", wrapping around your " + target.leg() + " sensually at every opportunity.");
+			if(target.tailCount == 1) output2(" A narrow tail ending in a spaded tip curls down from your " + target.buttDescript() + ", wrapping around your " + target.leg() + " sensually at every opportunity.");
+			else output2(" " + StringUtil.upperCase(num2Text(target.tailCount)) + " narrow tails curl down from your " + target.buttDescript() + ", each ending in a spaded tip. They sensually wrap around your " + target.leg() + " at every opportunity.");
+			
 			break;
 		case GLOBAL.TYPE_BOVINE:
 			if(target.tailCount == 1)
@@ -1782,7 +1792,7 @@ public function appearance(forTarget:Creature):void
 			output2(" A thin,");
 			if(target.hasTailFlag(GLOBAL.FLAG_GOOEY)) output2(" gooey");
 			else output2(" scaly");
-			output2(", prehensile reptilian tail, almost as long as you are tall, swings behind you like a living bullwhip. Its tip menaces with spikes of bone, meant to deliver painful blows.");	
+			output2(", prehensile reptilian tail, almost as long as you are tall, swings behind you like a living bullwhip. Its tip menaces with spikes of bone, meant to deliver painful blows.");
 			break;
 		case GLOBAL.TYPE_GRYVAIN:
 			output2(" A tapered, prehensile tail, almost as long as you are tall, swings behind you like a living bullwhip. Softly rounded at its tip, it quickly increases in girth closer to your body - almost as thick as your waist at its widest. The " + target.scaleColor + " scales sheathing your hefty tail’s length merge seamlessly with those of your lower back.");
@@ -2365,7 +2375,7 @@ public function appearance(forTarget:Creature):void
 	else if(tempBelly <= 20) output2("Your [target.belly] is pretty decent-sized. There’s no real hiding it.");
 	else if(tempBelly <= 30) output2("Your [target.belly] is impossible to miss. Wearing loose clothing wouldn’t even help at this point.");
 	//full round bulky
-	else if(tempBelly <= 40) output2("Your [target.belly] is big enough that passersby might think you pregnant at a glance.");
+	else if(tempBelly <= 40) output2("Your [target.belly] is big enough that a passersby might think you pregnant at a glance.");
 	//expansive extensive spacious
 	else if(tempBelly <= 50) output2("Your [target.belly] would look more at home on a woman in the later stages of her pregnancy than an adventuring rusher.");
 	//inflated excessive whopping
@@ -2383,7 +2393,11 @@ public function appearance(forTarget:Creature):void
 		output2(". Movement is a little impractical with the extra bulk.");
 	}
 	//ginormous over-inflated blimp-like
-	else output2("Your [target.belly] protrudes obscenely from your form, hanging heavily. Getting around is a struggle with so much extra mass on you.");
+	else if(tempBelly < 120) output2("Your [target.belly] protrudes obscenely from your form, hanging heavily. Getting around is a struggle with so much extra mass on you.");
+	else
+	{
+		output2("Your distended belly is so gargantuanly huge that you have no hope of seeing the floor anywhere near you, let alone your [target.legOrLegs]. It’s a small miracle that you can even stand upright with all that mass slung out in front of you.");
+	}
 	
 	//Tack on preg flavor shit to the end of belly descripts.
 	if(target.isPregnant())
@@ -3006,7 +3020,7 @@ public function crotchStuff(forTarget:Creature = null):void
 				if(Math.floor(10*target.cocks[0].thickness())/10 == 1) output2(int(10*target.cocks[0].thickness())/10 + " inch thick.");
 				else output2(Math.round(10*target.cocks[0].thickness())/10 + " inches across.");
 			}
-			else output2(num2Text(Math.round(10*target.cocks[0].thickness())/10) + " inches across.");				
+			else output2(num2Text(Math.round(10*target.cocks[0].thickness())/10) + " inches across.");
 			dickBonusForAppearance(null, 0);
 			//Worm flavor
 			if(target.hasStatusEffect("Infested")) output2(" Every now and again a slimy worm coated in spunk slips partway out of your " + target.cockDescript(0) + ", tasting the air like a snake’s tongue.");

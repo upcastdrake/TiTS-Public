@@ -211,7 +211,7 @@ public function galoMaxTFProc():void
 		else if(pc.isBimbo()) 
 		{
 			output(" You lick your lip and giggle. This is nothing a little cock can’t fix. You’ll have beautiful, long goo hair in no time!");
-			if(flags["MET_KIRO"] != undefined) output(" Maybe Kiro is in town?");
+			if(metKiro()) output(" Maybe Kiro is in town?");
 		}
 		output("\n\nNo other changes seem forthcoming. You’ll need another GaloMax to get any gooeyer.");
 		//Uncool hair colors are changed to green, blue, or some other standard goo color. Maybe consult codex to see what choices we have?
@@ -2327,7 +2327,7 @@ public function reshapeACaaaawk():void
 		else
 		{
 			output2("\n" + (x+1) + ": [pc.CockShape " + x + "] - <b>Not goo</b>");
-			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");	
+			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");
 		}
 	}
 	showBiomass();
@@ -2503,7 +2503,7 @@ public function removeGooCockRoot():void
 		else
 		{
 			output2("\n" + (x+1) + ": [pc.Cock " + x + "] - <b>Not goo</b>");
-			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");	
+			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");
 		}
 	}
 	showBiomass();
@@ -2573,7 +2573,7 @@ public function lengthenGooCock():void
 		else
 		{
 			output2("\n" + (x+1) + ": [pc.Cock " + x + "] - <b>Not goo</b>");
-			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");	
+			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");
 		}
 	}
 	showBiomass();
@@ -2628,7 +2628,7 @@ public function shortenADick():void
 		else
 		{
 			output2("\n" + (x+1) + ": [pc.Cock " + x + "] - <b>Not goo</b>");
-			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");	
+			addDisabledGhostButton(x,StringUtil.upperCase(num2Text(x+1)),StringUtil.capitalize(num2Ordinal(x + 1)) + " Cock","This penis isn’t made of goo.");
 		}
 	}
 	showBiomass();
@@ -2867,7 +2867,7 @@ public function removeAllVags():void
 	}
 	pc.removeVaginas();
 	clearGhostMenu();
-	addGhostButton(0,"Next",vaginaGooRootMenu);	
+	addGhostButton(0,"Next",vaginaGooRootMenu);
 }
 
 public function addClitGooMenu():void

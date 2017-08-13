@@ -14,6 +14,7 @@ package classes.Engine.ShipCombat
 		
 		ApplyWeaponDamageBonuses(user, weapon, sdr);
 		CalculateShieldDamage(target, weapon, sdr);
+		CalculateHullDamage(target, weapon, sdr);
 		
 		user.DealDamage(sdr);
 		target.TakeDamage(sdr);
@@ -77,7 +78,6 @@ function CalculateShieldDamage(target:SpaceShip, weapon:WeaponModule, sdr:ShipDa
 	}
 	
 	postResDam = Math.max(1, Math.round(postResDam - defReduction));
-	
 	if (postResDam <= target.Shields)
 	{
 		sdr.typedShieldDamage = shieldDam;

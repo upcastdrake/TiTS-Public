@@ -260,6 +260,8 @@ public function infestedVictoryOrLossMaleScene(loss:Boolean = true):void
 		output("\n\nThe chalky white mushroom quickly takes her rod into its mouth before a flood of pearly liquid jets out of its nozzle. Some of its meal escapes, running in rivulets over her still orgasming vagina. The running liquid sets off her spasms anew, and she manages an exaggerated ‘mmm’ to show her appreciation. The fungus suckles her sperm like a vacuum, sealing around her cock after the initial torrent and holding fast as you piston in and out.");
 		output("\n\nYou finally give in, unable to withstand the tension of her wet fuckhole, and fill her womb with rope after rope of [pc.cum], feeling completely satisfied as she shudders with each pulse. Your [pc.cum] mixes with her own cascading jizz and pools between her quivering cheeks. For a second you’re worried about her breathing, but she gasps in air at even intervals, and you pull yourself away from the tangle of flesh to sit for a moment and recover yourself.");
 		output("\n\nOnce her torrent stops, the fungal entity pulls itself off her cock and gives you a smile. A series of happy images flash through your mind, and you give it a hesitant grin in return. You gather your [pc.gear], leaving the two of them to recover while you return to your previous endeavors.");
+		
+		enemy.loadInCunt(pc, 0);
 	}
 	//dicktoobig
 	else
@@ -288,6 +290,7 @@ public function infestedVictoryOrLossMaleScene(loss:Boolean = true):void
 		output("\n\n<i>“S-sorry. I kinda blacked out there,”</i> she says with a nervous laugh. <i>“I think I’ll stay here and rest for a bit.”</i>");
 		output("\n\nYou nod and stretch yourself out, grabbing your [pc.gear] before heading back to exploring the caves.");
 		
+		enemy.loadInMouth(pc);
 		imbibeVenomEffects();
 	}
 	output("\n\n");
@@ -355,6 +358,7 @@ public function infectedMyrWinOrLossFuckForGirlTypes(loss:Boolean = true):void
 	output("\n\nYou grip her tightly as you deal with your own orgasm. Hot white lights flash in your head as you tense and moan in rapture, and when you finally come back to your senses the ant-girl is passed out atop you, with the fully solid mushroom creature in a similar state atop her. You gently slide the pair off of you and gather your [pc.gear], leaving them to sleep as you return to your previous endeavors.\n\n");
 	//(pass 1 hr)(pc gets nastygerms)
 	processTime(50+rand(20));
+	pc.loadInCunt(enemy, x);
 	pc.orgasm();
 	if(loss) CombatManager.genericLoss();
 	else CombatManager.genericVictory();
@@ -385,7 +389,7 @@ public function maleInfectedMyrEncounter():void
 	output("\n\nThe passage would be totally dark, but the pulsing lights help you see rather clearly. The soft glow lets you walk for a minute or two before the walls begin to widen into a bigger cavern. The inside is brighter than the tunnel, and the reason for it is a sight to behold. A number of gigantic crystals dot the room, covered in titanic mushrooms. Most of the crystals are covered in a myriad of cracks, each full of sprouting mushrooms.");
 	output("\n\nYou pause, thinking you see something amongst the shining crystals, but the strobing lights prevent you from focusing on one place for long enough to tell for sure. Dulled creaking emanates from the larger crystals, and you wonder how much the fungi have affected their structural stability.");
 	output("\n\nAs you listen you hear another sound, like the buzzing of an insect’s wings, and you have just enough time to jump back before a pair of large creatures fall atop the spot you had been standing. The tiny toadstools nearby are squashed in the confusion, flashing red and yellow as they lie flattened, and begin to slowly reform even as they’re knocked around.");
-	output("\n\n<i>“Another one? I must be the luckiest male ever! First I fall asleep and wake up with superpowers, then I get not one but two slaves,”</i> he says with glee. You don’t like the tone in his voice. The person talking is a pale myr with golden blond hair. He stands totally naked and unashamed. A human-like, alabaster cock hangs between his legs, looking to be about 14 inches long.");
+	output("\n\n<i>“Another one? I must be the luckiest male ever! First I fall asleep and wake up with superpowers, then I get not one but two slaves,”</i> he says with glee. You don’t like the tone in his voice. The person talking is a pale myr with golden blonde hair. He stands totally naked and unashamed. A human-like, alabaster cock hangs between his legs, looking to be about 14 inches long.");
 	output("\n\nHis companion remains quiet, and you notice that it ");
 	if (!CodexManager.entryUnlocked("Nyrea"))
 	{
@@ -576,7 +580,7 @@ public function fungalQueenEncounter():void
 	output(". The agile spores alter their looping course slightly to avoid you as you walk by, moving like dancers out of your way. They resume their prior course when you leave their specific zone, so you pay them little attention, merely being careful not to touch them as you pass. You also make sure to avoid the scattered toadstools that litter the floor.");
 	output("\n\nThe gems before you are obscured to some degree by the false snow, and you can only see a few parts of them at any given time. It isn’t long before you notice that you are walking between two of the colossal structures, their shining surfaces mostly devoid of intrusion by the fungus except at the creases. Softly glowing mushrooms spread tendrils into any opening");
 	output("\n\nAs you approach the rear of the cavern a sound catches your attention. It sounds familiar, but difficult to place. It sounds like music, but unlike any you can describe. The words, if they can be called that, are not ones your mouth can make, and you find no answers in your Codex’s translator. You must be the first space farer to hear these noises, whatever they are.");
-	output("\n\nA cloud of spores moves, allowing you to see a little further ahead, and you tense at the sight they reveal. A female gold myr sits on a chair sized mushroom, surrounded by a tiny whirlwind of spores that pulse with vibrant colors. She bobs in time with the sounds, her eyes totally blank and staring at nothing as the fantastic colors reflect in them. Her hair is a shining gold, looking as if it were literally dipped in the metal instead of the average blond.");
+	output("\n\nA cloud of spores moves, allowing you to see a little further ahead, and you tense at the sight they reveal. A female gold myr sits on a chair sized mushroom, surrounded by a tiny whirlwind of spores that pulse with vibrant colors. She bobs in time with the sounds, her eyes totally blank and staring at nothing as the fantastic colors reflect in them. Her hair is a shining gold, looking as if it were literally dipped in the metal instead of the average blonde.");
 	output("\n\nBeside her is the source of the noise. A tall, stark white figure stands a few feet from her reclining form. Standing might not be the most appropriate word for it though, as instead of feet she is simply anchored to a half sphere. Upon closer inspection the half sphere is actually the pregnant looking belly of a red myr, one who looks equally enraptured by the song as the other girl. The tall white woman is perfectly still atop her seemingly ecstatic host.");
 	output("\n\nUnlike the other fungal manifestations you’ve seen");
 	if(flags["MET_INFECTED_MYR_FEMALE"] == undefined && flags["MET_INFECTED_MYR_MALE"] == undefined) output(" (pictures of on the codex)");

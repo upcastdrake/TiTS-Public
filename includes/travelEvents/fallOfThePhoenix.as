@@ -47,7 +47,7 @@ public function moveInToDaShip(destination:String):void
 	author("Savin");
 	output("Carefully, you angle your ship around beneath the <i>Phoenix</i>, putting it between you and the pirate vessel. With those grappling lines, the enemy shouldn’t be able to move around and engage you, at least for a few minutes. That’s all you need to close the distance between your ships, using the docking thrusters to guide your vessel in through the field of wreckage left over from the ruptured hull. You get about as close as you can, aligning your ship with the <i>Phoenix</i>’s main airlock, though you’ve still got a good hundred yards between you. You abandon the bridge, hiking down to the armory and load up your kit and a grappling gun before suiting up for E.V.A.");
 	output("\n\nOnce you’ve gathered your gear together, you make your way to the airlock and cycle through it. A moment passes, and the great black vastness of space is open before you, though marred by the field of carbon-scorched steel floating listlessly between you and the <i>Phoenix</i>’s hull. You bring the grappling gun to your shoulder, take aim, and fire. The magnetic hook flies true until it cracks into the other ship’s airlock door. You tie the rope off, making sure it’s nice and rigid before you go, lest you end up free-floating for eternity. Once you’ve made sure it’s secure, you latch on and activate your suit’s thrusters, letting them carry you across the void between your ships until you face-plant into the <i>Phoenix</i>’s hull.");
-	output("\n\nGraceful. As. Fuck. You peel yourself off the hull and grab the airlock panel, punching in the command for it to cycle open. You’re glad you were beside it when it pops open: the outer door practically blasts off its hinges as air evacuates out in an explosion of air and furniture. You grab onto a railing for dear life while the compartment vents, leaving a foggy cloud of air billowing out from the <i>Phoenix</i> which is thankfully devoid of bodies. When the vent is complete, you swing into the devastated compartment and activate your mag-boots with a satisfying electronic beep. By the look of it, this was a common room before your… dynamic entry. A card table’s been crushed against the wall next to the airlock, floating in splinters around you as a fridge strains against its oversized power cords. ");
+	output("\n\nGraceful. As. Fuck. You peel yourself off the hull and grab the airlock panel, punching in the command for it to cycle open. You’re glad you were beside it when it pops open: the outer door practically blasts off its hinges as air evacuates out in an explosion of air and furniture. You grab onto a railing for dear life while the compartment vents, leaving a foggy cloud of air billowing out from the <i>Phoenix</i> which is thankfully devoid of bodies. When the vent is complete, you swing into the devastated compartment and activate your mag-boots with a satisfying electronic beep. By the look of it, this was a common room before your... dynamic entry. A card table’s been crushed against the wall next to the airlock, floating in splinters around you as a fridge strains against its oversized power cords. ");
 	output("\n\nSo, you’ve made it aboard ship. The next question is... how do you proceed? Opening the other doors would probably result in further air loss, and if you aren’t johnny on the spot, you could decompress the entire ship. From where you’re standing, there’s a fore door to the bridge, and an aft one to the engineering and cargo decks; from the carbon scoring on the bulkheads, it looks like there was a running firefight thataway. There’s also a console up against the starboard bulkhead that’s still blinking with power despite the lack of air. Hardy little computer.");
 
 	currentLocation = "PHOENIX RECROOM";
@@ -275,7 +275,7 @@ public function phoenixBridgeShields():void
 {
 	clearOutput();
 	author("Savin");
-	//{PC hasn't routed the power}
+	// PC hasn't routed the power
 	if (flags["FALL OF THE PHOENIX FLUX COUPLING STATUS"] != 2)
 	{
 		output("<i>“There’s the button,”</i> the disembodied A.I. says. A moment passes as she tries to point it out, sans body. <i>“Uh... the big green one. Under the fuzzy dice.”</i>");
@@ -287,7 +287,7 @@ public function phoenixBridgeShields():void
 		output("\n\n<i>“Uh...”</i> the A.I. groans, half-thinking and half-panicking. <i>“Pirates must have shorted the systems out when they hit us. Oh, no. Okay, okay, uh... there’s a flux coupling behind the bulkhead in the captain’s quarters. Come on, we can re-route the power from there!”</i>");
 		flags["FALL OF THE PHOENIX SHIELDS STATUS"] = 1;
 	}
-	// {PC has routed the power}
+	// PC has routed the power
 	else
 	{
 		output("You press the shield control again, and this time, you’re rewarded with a roaring sound from the back of the ship and several panels in the cockpit shorting out, showering you in sparks. Through the viewscreen, you’re rewarded with the sight of bright orange energy wrapping around the cockpit, spreading out from the emitters overhead and enveloping the wreck of the <i>Phoenix</i>. ");
@@ -435,7 +435,7 @@ public function startPhoenixPirateFight():void
 
 public function loseToPhoenixPirates():void 
 {
-	//{Not a Bad End: Saendra sold into slavery!}
+	// Not a Bad End: Saendra sold into slavery!
 	flags["FALL OF THE PHOENIX STATUS"] = -1;
 	flags["FALL OF THE PHOENIX DEFEATED PIRATES"] = -1;
 	clearOutput();
@@ -465,7 +465,7 @@ public function loseToPhoenixPirates():void
 	processTime(60 * (4 + rand(4)));
 	output("\n\n<b>Hours pass...</b>");
 
-	//{PC loses 75% of credits + all equipment save underclothes}
+	// PC loses 75% of credits + all equipment save underclothes
 	pc.credits = Math.floor(pc.credits * 0.25);
 	pc.shield = new EmptySlot();
 	pc.accessory = new EmptySlot();

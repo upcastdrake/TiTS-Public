@@ -308,7 +308,7 @@ public function initUvetoRooms():void
 	rooms["UVI H34"].system = "SYSTEM: SIRETTA";
 	rooms["UVI H34"].northExit = "UVI H32";
 	rooms["UVI H34"].eastExit = "UVI J34";
-	rooms["UVI H34"].southExit = "UVI H36";	
+	rooms["UVI H34"].southExit = "UVI H36";
 	rooms["UVI H34"].westExit = "UVI F34";
 	rooms["UVI H34"].moveMinutes = 1;
 	rooms["UVI H34"].addFlag(GLOBAL.PUBLIC);
@@ -321,7 +321,7 @@ public function initUvetoRooms():void
 	rooms["UVI H36"].planet = "PLANET: UVETO VII";
 	rooms["UVI H36"].system = "SYSTEM: SIRETTA";
 	rooms["UVI H36"].northExit = "UVI H34";
-	rooms["UVI H36"].southExit = "UVI H38";	
+	rooms["UVI H36"].southExit = "UVI H38";
 	rooms["UVI H36"].moveMinutes = 1;
 	rooms["UVI H36"].runOnEnter = steeleBiomedBonus;
 	rooms["UVI H36"].addFlag(GLOBAL.PUBLIC);
@@ -784,8 +784,8 @@ public function initUvetoRooms():void
 	rooms["UVIP H40"].westExit = "UVIP F40";
 	rooms["UVIP H40"].moveMinutes = 6;
 	rooms["UVIP H40"].runOnEnter = TundraEncounterBonus;
-	rooms["UVIP H40"].addFlag(GLOBAL.ICYTUNDRA);	
-	rooms["UVIP H40"].addFlag(GLOBAL.HAZARD);	
+	rooms["UVIP H40"].addFlag(GLOBAL.ICYTUNDRA);
+	rooms["UVIP H40"].addFlag(GLOBAL.HAZARD);
 
 	rooms["UVIP J40"] = new RoomClass(this);
 	rooms["UVIP J40"].roomName = "TWISTING\nRISE";
@@ -2281,7 +2281,8 @@ public function initUvetoRooms():void
 	rooms["UVGR M4"].southExit = "UVGR M6";
 	rooms["UVGR M4"].moveMinutes = 1;
 	rooms["UVGR M4"].addFlag(GLOBAL.INDOOR);
-	rooms["UVGR M4"].runOnEnter = GlacialRiftPlateauCamp; // 9999 Female Stormguard
+	rooms["UVGR M4"].addFlag(GLOBAL.TAXI);
+	rooms["UVGR M4"].runOnEnter = krymCampBonus;
 
 	rooms["UVGR G6"] = new RoomClass(this);
 	rooms["UVGR G6"].roomName = "\nCLIFFSIDE";

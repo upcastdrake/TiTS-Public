@@ -91,6 +91,11 @@
 		public var Bust_CONNIE:Class;
 		[Embed(source = "../../../assets/images/npcs/shou_puppy/connie_nude.png", mimeType = "image/png")]
 		public var Bust_CONNIE_NUDE:Class;
+
+		[Embed(source = "../../../assets/images/npcs/shou_puppy/cruff.png", mimeType = "image/png")]
+		public var Bust_CRUFF:Class;
+		/*[Embed(source = "../../../assets/images/npcs/shou_puppy/cruff_nude.png", mimeType = "image/png")]
+		public var Bust_CRUFF_NUDE:Class;*/
 		
 		[Embed(source = "../../../assets/images/npcs/shou_puppy/ganrael_0_blue.png", mimeType = "image/png")]
 		public var Bust_CRYSTAL_GOO_BLUE:Class;
@@ -626,7 +631,7 @@
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/anarrie.png", mimeType = "image/png")]
 			public var Full_ANARRIE:Class;
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/anarrie_nude.png", mimeType = "image/png")]
-			public var Full_ANARRIE_NUDE:Class;		
+			public var Full_ANARRIE_NUDE:Class;
 
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/antrias.png", mimeType = "image/png")]
 			public var Full_ANTRIAS:Class;
@@ -702,6 +707,11 @@
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/connie_nude.png", mimeType = "image/png")]
 			public var Full_CONNIE_NUDE:Class;
 			
+			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/cruff.png", mimeType = "image/png")]
+			public var Full_CRUFF:Class;
+			/*[Embed(source = "../../../assets/images/npcs/shou_puppy/cruff_nude.png", mimeType = "image/png")]
+			public var Bust_CRUFF_NUDE:Class;*/
+
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/ganrael_0_blue.png", mimeType = "image/png")]
 			public var Full_CRYSTAL_GOO_BLUE:Class;
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/ganrael_0_green.png", mimeType = "image/png")]
@@ -1023,7 +1033,7 @@
 			public var Full_MYR_INFECTED_FEMALE:Class;*/
 
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/myr_gold_bathers.png", mimeType = "image/png")]
-			public var Full_MYR_GOLD_BATHERS:Class;			
+			public var Full_MYR_GOLD_BATHERS:Class;
 
 			[Embed(source = "../../../assets/images/npcs/shou_puppy/hr/fungal_myr_queen_spores.png", mimeType = "image/png")]
 			public var Full_MYR_INFECTED_QUEEN:Class;

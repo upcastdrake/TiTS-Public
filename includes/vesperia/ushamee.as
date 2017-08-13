@@ -25,6 +25,7 @@ public function ushameeMeetInviteText():String
 	buff += "\n\nAnyway, I’m going to be visiting my brother on Canadia Station for the next while. Come by if you get a chance... we should talk about what happened.";
 	buff += "\n\nSincerely,";
 	buff += "\nUsha";
+	buff += "\n\n<i>Attached below the message are coordinates to Canadia Station.</i>";
 	
 	return buff;
 }
@@ -99,8 +100,14 @@ public function approachUshameeCorridor2():void
 	else output("Del ");
 	output("quickly comes over and takes a drink order from you both before leaving you in peace with the brawny space-centauress. Once she’s settled in one her haunches, the chief reaches up and yanks off the elastic tie holding her ebony locks back in a ponytail. Her luxuriously long hair comes spilling down around her shoulders, drawing your attention to the fact that she’s not wearing the armor you remember from your first meeting, but rather a white t-shirt with a picture of a railgun printed atop her ample rack underneath an unbuttoned red flannel shirt, and a blanket made of blue denim wrapped over her bestial lower half.");
 	output("<i>“Yeah, I was hoping we could talk. About what happened, and um... what we did.”</i>");
-	output("\n\nThe last few words there cause a dark, purplish flush to spread across her cheeks. Your mind immediately flashes back to those last, involuntarily intimate moments aboard the ship, with the parasites wriggling inside of the chief’s gravid belly, peeking their tentacle-like appendages back out of her chocolate-hued pussy. The two of you certainly found a rather lewd way of dealing with her overwhelming parasite problem.");
-	output("\n\n<i>“Yeah, we sure did,”</i> she chuckles, rubbing at one of her plated ears. <i>“I just... shit, look, I wanted to say thanks, first of all. I don’t think me or my guys would have made it out of there without you. I totally had you wrong when we first met, and now you saved my life. And you’ve seen a lot more of me -- a different side -- than even the people I’ve fought side by side with for years. I don’t know whether to be incredibly embarrassed or seriously aroused by that.”</i>");
+	output("\n\nThe last few words there cause a dark, purplish flush to spread across her cheeks. Your mind immediately flashes back to those last, involuntarily intimate moments aboard the ship, with the parasites wriggling inside of the chief’s gravid belly, peeking their tentacle-like appendages back out of her chocolate-hued pussy.");
+	if (flags["FUCKED_CHIEF_NEYKKAR"] != undefined)
+	{
+		output(" The two of you certainly found a rather lewd way of dealing with her overwhelming parasite problem.");
+		output("\n\n<i>“Yeah, we sure did,”</i> s");
+	}
+	else output("\n\nS");
+	output("he chuckles, rubbing at one of her plated ears. <i>“I just... shit, look, I wanted to say thanks, first of all. I don’t think me or my guys would have made it out of there without you. I totally had you wrong when we first met, and now you saved my life. And you’ve seen a lot more of me -- a different side -- than even the people I’ve fought side by side with for years. I don’t know whether to be incredibly embarrassed or seriously aroused by that.”</i>");
 	
 	processTime(1 + rand(2));
 	
@@ -113,7 +120,6 @@ public function approachUshameeCorridor2():void
 public function embarassedUshamee():void
 {
 	clearOutput();
-	clearMenu();
 	chiefNeykkarHeader();
 	
 	output("<i>“Embarrassed, probably,”</i> you answer. <i>“What happened back on the ship should probably stay there.”</i>");
@@ -128,7 +134,6 @@ public function embarassedUshamee():void
 public function arousedUshamee():void
 {
 	clearOutput();
-	clearMenu();
 	chiefNeykkarHeader();
 	
 	output("Giving her your most charming smile, you tell the chief that you certainly liked seeing that side of her. And you gotta say: you wouldn’t mind seeing it again, in less dire circumstances.");
@@ -148,7 +153,6 @@ public function arousedUshamee():void
 public function noIdeaUshamee():void
 {
 	clearOutput();
-	clearMenu();
 	chiefNeykkarHeader();
 	
 	output("You answer with a shrug, saying that how she feels is up to her.");
@@ -168,7 +172,6 @@ public function mainMenuUsha(intro:Boolean = false):void
 		if(intro)
 		{
 			clearOutput();
-			clearMenu();
 			chiefNeykkarHeader();
 			
 			output("<i>“Back again?”</i> Usha says with a hungry little smile. <i>“Good to see you, [pc.name]! Sit down, take a load off. Let me buy you a drink!”</i>");
@@ -177,10 +180,13 @@ public function mainMenuUsha(intro:Boolean = false):void
 			else output("Del by the shoulder as [del.heShe] passes by");
 			output(" and orders drinks for the both of you, giving you time to settle into the seat across from her. Once the drinks arrive, Usha turns back to you and dunks a straw into the bubbling black liquor she’s ordered.");
 			output("\n\n<i>“So, what’s on your mind, [pc.name]?”</i>");
+			
+			processTime(2);
 		}
 	}
 	else flags["USHA_MET3"] = 1;
 	
+	clearMenu();
 	addButton(0, "Date", dateUsha, undefined, "Date", "Dating a Bugpony.");
 	if (flags["USHA_STATE"] != undefined && pc.lust() >= 33) addButton(1, "Sex", sexUsha, undefined, "Sex", "See if the chief’s up for a roll in the proverbial hay.");
 	else if (pc.lust() < 33) addDisabledButton(1, "Sex", "Sex", "You aren’t turned on enough for this.");
@@ -198,6 +204,7 @@ public function dateUsha():void
 	output("\n\n<i>“On the station? You’re looking at it,”</i> Ushamee chuckles. <i>“But I’ve been all over Vesperia with my brother and his family. Tell you what, rich " + (pc.isMale() ? "boy" : "girl") + ". If you foot the bill, I’ll show you some of the best places down there.”</i>");
 	output("\n\nWell, that’s certainly an offer, thought no telling how much Usha’s going to take you for...");
 	
+	processTime(1);
 	//If going on first date and don’t have 250 credits, or don’t have 100 credits you can’t date her
 	var dateCost:int = 100;
 	if (flags["USHA_DATE"] == undefined || flags["USHA_DATE"] == 2) dateCost = 250;
@@ -348,7 +355,6 @@ public function quickieUsha():void
 public function laterUsha():void
 {
 	clearOutput();
-	clearMenu();
 	chiefNeykkarHeader();
 	
 	output("<i>“On second thought, I’m liking the bar here,”</i> you tell her, taking a long draw from your drink. Usha just throws her head back and laughs, loud enough that a few patrons nearby turn and stare at her.");
@@ -379,11 +385,7 @@ public function sexUsha():void
 		output("\n\n<i>“I was hoping you’d say that,”</i> she answers, her tail thrashing against the booth. <i>“Lemme grab the tab, and then you’re all mine!”</i>");
 		
 	}
-	output("\n\nUsha taps her Codex against a little display on the table, gives you a little nod, and stands, rising to her full amazonian height to " + (pc.tallness < 68 ? "tower over you" : "reach even your lofty stature") + ". Grinning, she " + (pc.isTaur() ? "offers you a hand, hooking her arm around yours. " : "pats her flank and kneels her rearmost legs down, making a clear invitation. You saunter over and swing your [pc.leg] over her plated rear, pulling yourself up onto Usha’s back and wrapping your arms around her upper half’s slender waist. ") + "The two of you trot on back towards");
-	// 9999
-	//output(" the [pc.shipName]");
-	output(" your ship");
-	output(", punctuating every twist and turn of the docking arms with gropes and teases, planting kisses all along the chief’s neck and cheeks as you hold her close.");
+	output("\n\nUsha taps her Codex against a little display on the table, gives you a little nod, and stands, rising to her full amazonian height to " + (pc.tallness < 68 ? "tower over you" : "reach even your lofty stature") + ". Grinning, she " + (pc.isTaur() ? "offers you a hand, hooking her arm around yours." : "pats her flank and kneels her rearmost legs down, making a clear invitation. You saunter over and swing your [pc.leg] over her plated rear, pulling yourself up onto Usha’s back and wrapping your arms around her upper half’s slender waist.") + " The two of you trot on back towards the [PCShipName], punctuating every twist and turn of the docking arms with gropes and teases, planting kisses all along the chief’s neck and cheeks as you hold her close.");
 	output("\n\nUshamee’s cheeks are flushed a sultry dark purple by the time you arrive back at your ship. Home sweet home. Her upper ears are flush with her scalp, and her long, sinuous tail swishes along the deck and entwining between her legs. Even from where you are, you can smell the slowly swelling lust emanating from the chief’s backside, hanging more heavily in the air with every step. You’re starting to love the smell of leithan-bitch arousal, and no matter how much Usha tries to hide it, her womanly musk starts suffusing the atmosphere until you, too, are as flush as your tauric companion, almost ready to tear your gear off and ravish that lush pussy of hers.");
 	output("\n\nYou can’t get through the airlock quickly enough.");
 	output("\n\nWhen you’re finally stumbling into your ship, you slip away from Usha, disentangling yourself from her strong arms and leading her back to your bedroom with a coy crook of your finger.Over your shoulder, you hear her husky breathing and the sound of clothes hitting the deck. Her claws clitter-clack over the deck, and you can hear her tail slapping against damn near everything that gets in range. It’s a miracle she doesn’t knock something over before you’ve finally led her into into your cabin, and the door seals closed behind you.");

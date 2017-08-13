@@ -180,7 +180,7 @@ public function availableFaps(roundTwo:Boolean = false):Array
 			fap.func = autofellatioForNormies;
 			fap.ttHeader = "Autofellatio";
 			fap.ttBody = "Suck your own dick.";
-			faps.push(fap);	
+			faps.push(fap);
 		}
 	}
 	if (pc.cockTotal() >= 2)
@@ -1672,7 +1672,7 @@ public function milkturbation():void
 				else 
 				{
 					if(pc.lowerUndergarment.shortName != "") output("soaks your " + pc.lowerUndergarment.longName + " with fragrant feminine love");
-					else output("soaks your [pc.thighs] with your fragrant feminine love");	
+					else output("soaks your [pc.thighs] with your fragrant feminine love");
 				}
 				output(". Your lower lips and [pc.clits] feel positively swollen as ");
 				if(pc.totalVaginas() > 1) output("each of ");
@@ -2059,9 +2059,10 @@ public function goddamnitJimTAndYourExhibitionism():void
 	//PCWearingArmor that doesn't fully expose them
 	else if(pc.hasArmor() && !pc.isCrotchExposedByArmor() && !pc.isChestExposedByArmor() && !pc.isAssExposedByArmor())
 	{
-		output("\n\nBefore their eyes, you begin slowly stripping off your [pc.armor]. They watch on with wide open eyes and mouths as you peel it off your [pc.skinFurScales], exposing your bare body to the gaping onlookers. You can feel their looks lingering on and roaming around your body, causing you to shiver with delight.");
+		output("\n\nBefore their eyes, you begin slowly stripping off your [pc.armor]. They watch on with wide open eyes and mouths as you peel it off your [pc.skinFurScales], exposing your bare body to the gaping onlookers.");
 		//GotUpperUndergarment:
 		if(pc.hasUpperGarment() && !pc.isChestExposedByUpperUndergarment()) output(" Sliding your fingers up your bare flesh, you sensuously slide off your [pc.upperUndergarment]. The slowly gathering crowd gazes upon your [pc.chest] and you shiver with delight.");
+		else output(" You can feel their looks lingering on and roaming around your body, causing you to shiver with delight.");
 		if(pc.hasLowerGarment() && !pc.isCrotchExposedByLowerUndergarment() && !pc.isAssExposedByLowerUndergarment()) output(" Making a show of it, you hook your thumbs under your [pc.lowerUndergarment]. With a long, pointed bend, you strip them off, poking your bare [pc.skinFurScalesColor] buttocks at any watching bystanders. You try to control the quiver in your [pc.thighs] as you do so; it’s hard to contain your mounting excitement!");
 	}
 	//Else - not wearing armor that covers shit but SOMETHING is
@@ -3014,7 +3015,7 @@ public function moderateExhibitionOmniFap():void
 		output(" gasping as you groan and rub your [pc.vaginas] and [pc.asshole], perversely stretching out your orgasmic high for as long as you can!");
 	}
 	output("\n\nAfter the afterglow wears off, your cheeks burn as you realize just how much of a spectacle you made. You really didn’t mean to touch yourself that much! For some reason, you’re filled with a fuzzy sense of fulfilment. You’d better not do this kind of thing too often - it feels like it could be addictive!");
-	if(pc.exhibitionism() >= 75) output(" Could... could you secretly be an exhibitionist, perhaps-?");
+	if(pc.exhibitionism() < 66) output(" Could... could you secretly be an exhibitionist, perhaps?");
 	processTime(20+rand(10));
 	pc.exhibitionism(1);
 	pc.orgasm();

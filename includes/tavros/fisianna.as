@@ -72,12 +72,12 @@ public function fisiAtResDeck():Boolean
 }
  
 //Makes Fisi unavailable for the specified number of days. 1 = "until tomorrow", 2 = "until 2 days from now", etc. NOT 1 = 24 hours, etc.
-public function setFisiAway(days:int = 1):void
+public function setFisiAway(iDays:int = 1):void
 {
-	if (hours < 3) days -= 1;
-	if (days <= 0) return;
+	if (hours < 3) iDays -= 1;
+	if (iDays <= 0) return;
 	var time:int = ((23 - hours) * 60) + (60 - minutes);
-	time += (24 * 60) * (days - 1);
+	time += (24 * 60) * (iDays - 1);
 	
 	pc.createStatusEffect("Fisianna Disabled", 0, 0, 0, 0, true, "", "", false, time);
 }
@@ -112,7 +112,7 @@ public function fisiAtResDeckAddendum(btnSlot:int = 0):void
 public function approachGirls():void{
 	clearOutput();
 	author("Lkynmbr24");
-	showName("GIRLS")
+	showName("\nGIRLS");
 	clearMenu();
 	
 	if (flags["FISI_MET"] == undefined)
@@ -130,7 +130,7 @@ public function approachGirls():void{
 		output("\n\n<i>“Don’t be a such a ball-buster, Tara. I’m just trying to make our guest feel welcome.”</i>");
 		output("\n\n<i>“More like tryin’ to make [pc.himHer] feel welcome in your pants.”</i> The fox-girl snidely remarks. The bird-girl immediately and slightly amusingly ruffles her feathers in exasperation before she casts a death glare at the kitsune in retaliation for her outburst.");
 		output("\n\n<i>“TARA! Don’t you start!”</i> The feathered girl breathes out a heavy sigh after her scolding, to which both the dragoness and the vulpine both laugh heartily.");
-		output("\n\n<i>“Sorry about those two... Let me start over. My name’s Aya. The smart-ass, hot-headed fox over there is Tarariel. The dragon-gal with you is Britannia, and the kitty girl here is Fisianna!”</i> At that cue, Aya starts to prod Fisianna softly with her elbow. The feline jumps slightly at the nudges, but she continues to look demurely down at her lap. ");
+		output("\n\n<i>“Sorry about those two... Let me start over. My name’s Aya. The smart-ass, hot-headed fox over there is Tarariel. The dragon-gal with you is Britannia, and the kitty girl here is Fisianna!”</i> At that cue, Aya starts to prod Fisianna softly with her elbow. The feline jumps slightly at the nudges, but she continues to look demurely down at her lap.");
 		output("\n\nFisianna manages to murmur a barely audible, <i>“H-hi,”</i> before returning to silence, never lifting her gaze from her lap.");
 		output("\n\nBritannia leans in to your [pc.ear] whispering, <i>“She’s a shy little kitten she is. We’re trying to break her in on her intergalactic travels and get a little more friendly with the locals.”</i>");
 		output("\n\nWell, that seems to have straightened things out a little bit anyways, though it does make Fisianna stand out even more from the group of colorful women. Where the other three girls seem outgoing and comfortable in their own skin, and scales... and fur... and feathers, Fisianna just looks very <i>“delicate”</i> comparatively.");
@@ -218,7 +218,7 @@ public function stayGirls():void
 {
 	clearOutput();
 	author("Lkynmbr24");
-	showName("GIRLS")
+	showName("\nGIRLS");
 	clearMenu();
 	
 	output("You decide after a moment of thought to take your seat back next to Britannia and resume talking with the three exotic ");
@@ -228,19 +228,19 @@ public function stayGirls():void
 	if (flags["JUNGLE_STEP"] != undefined)
 	{
 		output("\n\nYou tell them about random adventures you had on planets you recently visited, ");
-		if (pc.isBimbo() || pc.isBro() || pc.lust() >= 30) output("making sure to spare no detail");
+		if (pc.isBimbo() || pc.isBro() || pc.lust() >= 33) output("making sure to spare no detail");
 		else output("skipping over the more salacious details");
-		output(" as the ladies become wrapped up in your stories. ");
+		output(" as the ladies become wrapped up in your stories.");
 	}
 	else
 	{
 		switch(flags["PC_UPBRINGING"])
 		{
-			case GLOBAL.UPBRINGING_PAMPERED: output("\n\nYou regale the ladies with stories of your childhood, telling them about a lavish party you attended and the interesting people you met there. "); break;
+			case GLOBAL.UPBRINGING_PAMPERED: output("\n\nYou regale the ladies with stories of your childhood, telling them about a lavish party you attended and the interesting people you met there."); break;
 			case GLOBAL.UPBRINGING_ATHLETIC: output("\n\nYou regale the ladies with stories of your childhood, telling them about a rather intense game you played while growing up and making a big play that won your team the championship."); break;
 			case GLOBAL.UPBRINGING_BOOKWORM: output("\n\nYou regale the ladies with stories of your childhood, telling them about a particularly interesting sci-fi book that you read as a child that wound up becoming true."); break;
-			case GLOBAL.UPBRINGING_AUSTERE: output("\n\nYou regale the ladies with stories of your childhood, telling them about the struggles of finding a suitable job while living a tough but hard working life. "); break;
-			case GLOBAL.UPBRINGING_PAMPERED: output("\n\nYou regale the ladies with stories of your childhood, telling them about things you did with your father while growing up and reflecting on things you wish you did with him now that he is gone. "); break;
+			case GLOBAL.UPBRINGING_AUSTERE: output("\n\nYou regale the ladies with stories of your childhood, telling them about the struggles of finding a suitable job while living a tough but hard working life."); break;
+			case GLOBAL.UPBRINGING_PAMPERED: output("\n\nYou regale the ladies with stories of your childhood, telling them about things you did with your father while growing up and reflecting on things you wish you did with him now that he is gone."); break;
 			default: output("\n\nMISSING FLAVOR TEXT FOR AN UPBRINGING.");
 		}
 	}
@@ -300,10 +300,16 @@ public function nahFisi():void
 
 public function approachFisi():void
 {
+	//We went to her sleepover, she trusts us loads, and we haven't had this scene yet - Time for a Max Trust Scene
+	if (flags["FISI_MAX"] == undefined && flags["FISI_SLEPT_WITH"] != undefined && flags["FISI_TRUST"] == 100)
+	{
+		maxTrustScene();
+		return;
+	}
+	
 	clearOutput();
 	author("Lkynmbr24");
 	showFisi();
-	clearMenu();
 	
 	//First time seeing Fisi here
 	if (flags["FISI_AT_RES_DECK"] == 1)
@@ -324,12 +330,6 @@ public function approachFisi():void
 		output("\n\n<i>“Mmm... a-anyway, I wanted to meet up with you here to, uh... start over from the night at Anon’s. Y-you know... to get to know each other better. I still owe you for storming out on you that night. You seem like a good person, s-so if you’ll give me a chance...”</i> Fisianna trails off, looking worriedly at you.");
 		output("\n\n<i>“Like I said before, it’s ok! I wouldn’t be here if I wasn’t intending on giving you a chance. Relax!”</i> You give Fisianna your best reassuring smile.");
 		output("\n\n<i>“R-right.”</i> After a pregnant pause, Fisianna continues. <i>“Sooo... Is there anything you wanted to talk about? M-maybe we can tell each other a bit about ourselves?”</i>");
-	}
-	//We went to her sleepover, she trusts us loads, and we haven't had this scene yet - Time for a Max Trust Scene
-	else if (flags["FISI_MAX"] == undefined && flags["FISI_SLEPT_WITH"] != undefined && flags["FISI_TRUST"] == 100)
-	{
-		maxTrustScene();
-		return;
 	}
 	//Nothing special, whats up Fisi
 	else
@@ -369,10 +369,18 @@ public function approachFisi():void
 		}
 	}
 	
+	processTime(1);
+	
+	fisiMainMenu();
+}
+public function fisiMainMenu(fromBack:Boolean = false):void
+{
+	clearMenu();
+	
 	addButton(0, "Appearance", appearanceFisi, undefined, "Appearance", "Get a good look at the catgirl.");
 	addButton(1, "Talk", talkFisi, undefined, "Talk", "Get to know Fisianna better.");
 	
-	if (flags["FISI_TRUST"] >= 25) addButton(2, "Hangout", hangoutFisi, undefined, "Hangout", "Go hangout someplace with Fisianna. You might bump into a friend of hers. ");
+	if (flags["FISI_TRUST"] >= 25) addButton(2, "Hangout", hangoutFisi, undefined, "Hangout", "Go hangout someplace with Fisianna. You might bump into a friend of hers.");
 	else addDisabledButton(2, "Hangout", "Hangout", "You don’t know her well enough to know where she might like to hang out.");
 	
 	//Date Button
@@ -380,17 +388,20 @@ public function approachFisi():void
 	{
 		if (pc.isTaur() && flags["FISI_DATE_NUMBER"] == 5) addDisabledButton(3, "Date", "Date", "It doesn’t look like she wants to take things further due to your formidable anatomy.");
 		else if (flags["FISI_DATE_NUMBER"] == undefined && pc.credits < 200) addDisabledButton(3, "Date", "Date", "You don’t have enough credits to taker her out on a date.");
-		else addButton(3, "Date", dateFisi, undefined, "Date", "Go out on a date with Fisianna. ");
+		else addButton(3, "Date", dateFisi, undefined, "Date", "Go out on a date with Fisianna.");
 		
-		addDisabledButton(4, "Sex", "Sex", "You’ll have to get her to open up to you more to do this with her.")
+		if(!fromBack) addDisabledButton(4, "Sex", "Sex", "You’ll have to get her to open up to you more to do this with her.");
+		else addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable enough with you to do this yet.");
 	}
 	//Sex Button
 	else if (flags["FISI_DATE_NUMBER"] == 6)
 	{
-		if (pc.isTaur()) addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable doing this with someone of your formidable anatomy.");
-		else addButton(4, "Sex", sexFisi, undefined, "Sex", "Have some fun with the kitten! ");
+		addDisabledButton(3, "Date", "Date", "You’ve already been on all the dates with her.");
 		
-		addDisabledButton(3, "Date", "Date", "You’ve already been on all the dates with her.")
+		if (pc.lust() < 33) addDisabledButton(4, "Sex", "Sex", "You aren’t aroused enough for this.");
+		else if (flags["FISI_SEX_NUMBER"] == undefined && !pc.hasGenitals()) addDisabledButton(4, "Sex", "Sex", "You can’t access this without genitals first.");
+		else if (pc.isTaur()) addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable doing this with someone of your formidable anatomy.");
+		else addButton(4, "Sex", sexFisi, undefined, "Sex", "Have some fun with the kitten!");
 	}
 	else 
 	{
@@ -399,8 +410,6 @@ public function approachFisi():void
 	}
 	
 	addButton(14, "Leave", leaveFisi);
-	
-	processTime(1);
 }
 
 public function appearanceFisi():void
@@ -468,44 +477,11 @@ public function talkBack():void
 	clearOutput();
 	author("Lkynmbr24");
 	showFisi();
-	clearMenu();
 	
 	output("You decide to change your mind about talking with Fisianna.");
 	output("\n\n<i>“O-oh, ok, if that’s what you want. Did you have anything else in mind for us then?”</i> Fisianna asks tentatively.");
 	
-	addButton(0, "Appearance", appearanceFisi, undefined, "Appearance", "Get a good look at the catgirl.");
-	addButton(1, "Talk", talkFisi, undefined, "Talk", "Get to know Fisianna better.");
-	
-	addButton(0, "Appearance", appearanceFisi, undefined, "Appearance", "Get a good look at the catgirl.");
-	addButton(1, "Talk", talkFisi, undefined, "Talk", "Get to know Fisianna better.");
-	
-	if (flags["FISI_TRUST"] >= 25) addButton(2, "Hangout", hangoutFisi, undefined, "Hangout", "Go hangout someplace with Fisianna. You might bump into a friend of hers. ");
-	else addDisabledButton(2, "Hangout", "Hangout", "You don’t know her well enough to know where she might like to hang out.");
-	
-	//Date Button
-	if (flags["FISI_LOVER"] != undefined && flags["FISI_DATE_NUMBER"] != 6)
-	{
-		if (pc.isTaur() && flags["FISI_DATE_NUMBER"] == 5) addDisabledButton(3, "Date", "Date", "It doesn’t look like she wants to take things further due to your formidable anatomy.");
-		else if (flags["FISI_DATE_NUMBER"] == undefined && pc.credits < 200) addDisabledButton(3, "Date", "Date", "You don’t have enough credits to taker her out on a date.");
-		else addButton(3, "Date", dateFisi, undefined, "Date", "Go out on a date with Fisianna. ");
-		
-		addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable enough with you to do this yet.")
-	}
-	//Sex Button
-	else if (flags["FISI_DATE_NUMBER"] == 6)
-	{
-		if (pc.isTaur()) addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable doing this with someone of your formidable anatomy.");
-		else addButton(4, "Sex", sexFisi, undefined, "Sex", "Have some fun with the kitten! ");
-		
-		addDisabledButton(3, "Date", "Date", "You’ve already been on all the dates with her.")
-	}
-	else 
-	{
-		addDisabledButton(3, "Locked", "Locked", "You must be lovers with Fisianna in order to be able to do this.");
-		addDisabledButton(4, "Locked", "Locked", "You must be lovers with Fisianna in order to be able to do this.");
-	}
-	
-	addButton(14,"Leave",leaveFisi);
+	fisiMainMenu(true);
 }
 
 public function topicFisianna():void
@@ -924,44 +900,11 @@ public function hangoutBack():void
 	clearOutput();
 	author("Lkynmbr24");
 	showFisi();
-	clearMenu();
 	
 	output("You decide to change your mind about traveling somewhere with Fisianna.");
 	output("\n\n<i>“O-oh, ok. I’m perfectly fine with staying here too. Just let me know whenever you do want to go somewhere. I’m up for anything else you might have planned.”</i> Fisianna says expectantly.");
 	
-	addButton(0, "Appearance", appearanceFisi, undefined, "Appearance", "Get a good look at the catgirl.");
-	addButton(1, "Talk", talkFisi, undefined, "Talk", "Get to know Fisianna better.");
-	
-	addButton(0, "Appearance", appearanceFisi, undefined, "Appearance", "Get a good look at the catgirl.");
-	addButton(1, "Talk", talkFisi, undefined, "Talk", "Get to know Fisianna better.");
-	
-	if (flags["FISI_TRUST"] >= 25) addButton(2, "Hangout", hangoutFisi, undefined, "Hangout", "Go hangout someplace with Fisianna. You might bump into a friend of hers. ");
-	else addDisabledButton(2, "Hangout", "Hangout", "You don’t know her well enough to know where she might like to hang out.");
-	
-	//Date Button
-	if (flags["FISI_LOVER"] != undefined && flags["FISI_DATE_NUMBER"] != 6)
-	{
-		if (pc.isTaur() && flags["FISI_DATE_NUMBER"] == 5) addDisabledButton(3, "Date", "Date", "It doesn’t look like she wants to take things further due to your formidable anatomy.");
-		else if (flags["FISI_DATE_NUMBER"] == undefined && pc.credits < 200) addDisabledButton(3, "Date", "Date", "You don’t have enough credits to taker her out on a date.");
-		else addButton(3, "Date", dateFisi, undefined, "Date", "Go out on a date with Fisianna. ");
-		
-		addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable enough with you to do this yet.")
-	}
-	//Sex Button
-	else if (flags["FISI_DATE_NUMBER"] == 6)
-	{
-		if (pc.isTaur()) addDisabledButton(4, "Sex", "Sex", "It doesn’t look like she is comfortable doing this with someone of your formidable anatomy.");
-		else addButton(4, "Sex", sexFisi, undefined, "Sex", "Have some fun with the kitten! ");
-		
-		addDisabledButton(3, "Date", "Date", "You’ve already been on all the dates with her.")
-	}
-	else 
-	{
-		addDisabledButton(3, "Locked", "Locked", "You must be lovers with Fisianna in order to be able to do this.");
-		addDisabledButton(4, "Locked", "Locked", "You must be lovers with Fisianna in order to be able to do this.");
-	}
-	
-	addButton(14,"Leave",leaveFisi);
+	fisiMainMenu(true);
 }
 
 public function goArcade():void
@@ -1489,11 +1432,6 @@ public function dateFisi():void
 	else if (flags["FISI_DATE_NUMBER"] == 5)
 	{
 		flags["FISI_DATE_NUMBER"] = 6;
-		if (flags["FISI_TIMES_SEXED"] == undefined) flags["FISI_TIMES_SEXED"] = 0;
-		if (flags["FISI_TIMES_TJ"] == undefined) flags["FISI_TIMES_TJ"] = 0;
-		if (flags["FISI_TIMES_EATEN"] == undefined) flags["FISI_TIMES_EATEN"] = 0;
-		if (flags["FISI_TIMES_69"] == undefined) flags["FISI_TIMES_69"] = 0;
-		if (flags["FISI_TIMES_VAG"] == undefined) flags["FISI_TIMES_VAG"] = 0;
 		sixthDateFisi();
 		return;
 	}
@@ -1815,7 +1753,7 @@ public function sexFisi():void
 	currentLocation = "RESIDENTIAL DECK FISIS APARTMENT";
 	generateMap();
 	
-	flags["FISI_TIMES_SEXED"] += 1;
+	IncrementFlag("FISI_TIMES_SEXED");
 	
 	output("You propose the idea of going back to Fisianna’s place for a bit of ‘fun’ while shooting an unsubtle wink at her, making your intentions clear.");
 	output("\n\n<i>“O-oh my... Y-you wanna do... that?”</i> Fisianna’s face lights up in surprise as her face flushes pink. She recovers quickly as her eyes lower halfway, making her look both cute and seductive. <i>“W-well... I-I suppose we <b>could</b>...”</i> Fisianna drags the <i>“could”</i> in mock thought as she stands up from the bench. ");
@@ -1823,30 +1761,18 @@ public function sexFisi():void
 	else output("You follow suit and walk arm in arm back to Fisianna’s apartment.");
 	output("\n\nOnce the two of you arrive, you jump to the attack and seize Fisianna in a fierce and passionate kiss. You lock lips with each other tightly while your tongues dance between the seal of your mouths. Without breaking the kiss, the two of you stumble all the way into her bedroom, where you eventually trip over the edge of her bed, consequently pulling the both of you apart. Fisianna looks at you with her golden eyes, filled with passion and hunger for you as you lay next to each other side by side on the bed, panting for breath from the long kiss. You think about what you would like to do with your feline lover this time.");
 
-	if (pc.hasCock() || pc.hasVagina())
-	{
-		if (pc.lust() >= 33) addButton(0, "Tailjob", tailjobFisi, undefined, "Tailjob", "Let her tails go to work on you.");
-		else addDisabledButton(0, "Tailjob", "Tailjob", "You aren’t aroused enough for this.");
-	}
-	else addDisabledButton(0, "Tailjob", "Tailjob", "You need a cock or vagina for this.")
+	if (pc.hasCock() || pc.hasVagina()) addButton(0, "Tailjob", tailjobFisi, undefined, "Tailjob", "Let her tails go to work on you.");
+	else addDisabledButton(0, "Tailjob", "Tailjob", "You need a cock or vagina for this.");
 	
 	if (flags["FISI_SEX_NUMBER"] >= 1) addButton(1, "Eat Her Out", eatOutFisi, undefined, "Eat Her Out", "Munch on her pussy.");
-	else addDisabledButton(1, "Eat Her Out", "Eat Her Out", "It doesn’t look like she is comfortable enough with you to do this yet.")
+	else addDisabledButton(1, "Eat Her Out", "Eat Her Out", "It doesn’t look like she is comfortable enough with you to do this yet.");
 	
 	if (!(flags["FISI_SEX_NUMBER"] >= 2)) addDisabledButton(2, "Sixty-Nine", "Sixty-Nine", "It doesn’t look like she is comfortable enough with you to do this yet.");
-	else if (pc.hasVagina() || largestCockIndexThatFitsFisiDimensions() >= 0)
-	{
-		if (pc.lust() >= 33) addButton(2, "Sixty-Nine", sixtyNineFisi, undefined, "Sixty-Nine", "Lick each other up.");
-		else addDisabledButton(2, "Sixty-Nine", "Sixty-Nine", "You aren’t aroused enough for this.");
-	}
+	else if (pc.hasVagina() || largestCockIndexThatFitsFisiDimensions() >= 0) addButton(2, "Sixty-Nine", sixtyNineFisi, undefined, "Sixty-Nine", "Lick each other up.");
 	else addDisabledButton(2, "Sixty-Nine", "Sixty-Nine", "You need a cock that fits or vagina for this.");
 	
 	if (!(flags["FISI_SEX_NUMBER"] >= 3)) addDisabledButton(3, "Vaginal", "Vaginal", "It doesn’t look like she is comfortable enough with you to do this yet.");
-	else if (largestCockIndexThatFitsFisiDimensions() >= 0 || (pc.hasHardLightEquipped() && pc.hasVagina())) 
-	{
-		if (pc.lust() >= 33) addButton(3, "Vaginal", vaginalFisi, undefined, "Vaginal", "Make love with the feline.");
-		else addDisabledButton(3, "Vaginal", "Vaginal", "You aren’t aroused enough for this.");
-	}
+	else if (largestCockIndexThatFitsFisiDimensions() >= 0 || (pc.hasHardLightEquipped() && pc.hasVagina())) addButton(3, "Vaginal", vaginalFisi, undefined, "Vaginal", "Make love with the feline.");
 	else addDisabledButton(3, "Vaginal", "Vaginal", "You need a cock that fits, or a vagina and a hardlight strapon for this.");
 }
 
@@ -1860,7 +1786,7 @@ public function tailjobFisi():void
 	currentLocation = "RESIDENTIAL DECK FISIS APARTMENT";
 	generateMap();
 	
-	flags["FISI_TIMES_TJ"] += 1;
+	IncrementFlag("FISI_TIMES_TJ");
 	
 	if (flags["FISI_SEX_NUMBER"] == undefined) output("<i>“Mmm... [pc.name]. I-I’ve actually been thinking... I wanted to repay you for what you did during the movie the time before. Your caress... your touch felt so good, and I appreciate that you’re willing to take things slow with me. I feel I might have left you a little hot and bothered then so... I was wondering if I could provide some... ‘help’ with that?”</i> Fisianna asks coyly as she raises her twin tails, waving them in front of her to hint at what she plans to do to repay your earlier effort. ");
 	else output("<i>“D-did you like the feel of my tails on you the last time? I’d be happy to rub them on you again since you seem to like them so much!”</i> Fisianna raises both of her tails and waves them in front of you like snakes to a charmer’s flute. The anticipation of feeling those on your loins again is killing you.");
@@ -1982,7 +1908,7 @@ public function eatOutFisi():void
 	currentLocation = "RESIDENTIAL DECK FISIS APARTMENT";
 	generateMap();
 	
-	flags["FISI_TIMES_EATEN"] += 1;
+	IncrementFlag("FISI_TIMES_EATEN");
 	
 	output("Without warning, you pounce onto Fisianna and fiercely lock lips with her again, resuming your kiss from before. The two of you press so hard into each other’s mouths with such passion that you almost wind up brushing teeth against one another. Your tongues vie for dominance in a sensual struggle between closed lips. Eventually you win out and roll Fisianna below you, pinning her down under you. She moans fervidly into your mouth as she concedes defeat in the tongue battle.");
 	output("\n\nYou start to snake one of your hands off of Fisianna’s face and run it down her lithe body. Her breath catches when your hand reaches one of her breasts. You give it a playful squeeze and Fisianna squeals with delight into your mouth. Unfortunately for the feline, her chest pillows are not your main target this time. Your hand snakes lower and lower down her petite body until you bridge the hem of cloth between her shirt and her pants. There, you worm your hands under her pants and feel the familiar trail of fur leading down to her sensitive knob. On contact with Fisianna’s pleasure button, she breaks the kiss and lets out a hearty moan. After she quickly settles down, she looks into your eyes and smiles excitedly.");
@@ -2045,7 +1971,7 @@ public function sixtyNineFisi():void
 	currentLocation = "RESIDENTIAL DECK FISIS APARTMENT";
 	generateMap();
 	
-	flags["FISI_TIMES_69"] += 1;
+	IncrementFlag("FISI_TIMES_69");
 	
 	var x:int = largestCockIndexThatFitsFisiDimensions();
 	
@@ -2146,7 +2072,7 @@ public function vaginalFisi():void
 	currentLocation = "RESIDENTIAL DECK FISIS APARTMENT";
 	generateMap();
 	
-	flags["FISI_TIMES_VAG"] += 1;
+	IncrementFlag("FISI_TIMES_VAG");
 	
 	var x:int = largestCockIndexThatFitsFisiDimensions();
 	
@@ -2299,7 +2225,7 @@ public function vaginalFisi():void
 			if (!fisianna.vaginalVirgin) output("near ");
 			output("virgin pussy, making a small mess of her bedding and both of your legs. ");
 		}
-		output("One quick glance at your lover’s face and you can tell she is totally gone. Her tongue is lazily lolling out of her mouth and she has the biggest grin on her face. You chuckle and nuzzle into her neck as you both ride out the rest of your climax.");	
+		output("One quick glance at your lover’s face and you can tell she is totally gone. Her tongue is lazily lolling out of her mouth and she has the biggest grin on her face. You chuckle and nuzzle into her neck as you both ride out the rest of your climax.");
 	}
 	else
 	{
@@ -2392,7 +2318,7 @@ public function iLoveYouFisi():void
 	output("\n\n<i>“T-this is possibly the happiest I’ve ever been in my life... I-I don’t think I’m dreaming, am I? Even if I am... I-I don’t want this moment to end...”</i> Fisianna hugs you close to her again, still purring.");
 	output("\n\nYou pet Fisianna between her ears while she embraces you. Eventually she lets you go and you continue your walk around the plaza, holding hands the entire way. She is all smiles the whole way around the plaza as you both enjoy your new coupling together. When you reach the northeastern part of the plaza again, Fisianna reaches toward you and gives you a quick peck on your cheek this time.");
 	output("\n\n<i>“I-I’m really glad that you feel the same way about me, and again, I’m really grateful to have met you, [pc.name]. I’m looking forward to the next chance I can see you again. I should go home now and get some rest... Let’s do something together again another time, just the two of us.”</i> Fisianna warmly smiles at you.");
-	output("\n\n<i>“As I said at the bar before, it’s a date!”</i> You quip. Fisianna smiles wider as she hugs you a final time before turning to walk home. ");	
+	output("\n\n<i>“As I said at the bar before, it’s a date!”</i> You quip. Fisianna smiles wider as she hugs you a final time before turning to walk home.");
 	
 	flags["FISI_LOVER"] = 1;
 	setFisiAway();

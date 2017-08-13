@@ -139,6 +139,7 @@ package classes.Characters
 					if(milkFrom.lactationQ() >= 2000) kGAMECLASS.honeyPotBump(true);
 				}
 			}
+			if(milkFrom != null) sstdChecks(milkFrom,"mouth");
 			return false;
 		}
 		
@@ -205,21 +206,18 @@ package classes.Characters
 				else addBiomass(10);
 			}
 			kGAMECLASS.mimbraneFeed("boobs");
+			if(cumFrom != null) sstdChecks(cumFrom,"nipple");
 			return false;
 		}
 		
 		override public function loadInCuntTail(cumFrom:Creature = null):Boolean
 		{
-			if (this.hasTailCunt()) 
-			{
-				if(cumFrom is Flahne) kGAMECLASS.feedCuntSnake(false);
-				else kGAMECLASS.feedCuntSnake();
-			}
+			if (this.hasTailCunt()) kGAMECLASS.feedCuntSnake(cumFrom);
 			if (cumFrom != null)
 			{
+				sstdChecks(cumFrom,"tail cunt");
 				return this.tryKnockUp(cumFrom, 4);
 			}
-			
 			return false;
 		}
 		
@@ -390,7 +388,7 @@ package classes.Characters
 			nBaseShield.kinetic.resistanceValue = toughVal;
 			
 			d.baseHPResistances = nBaseHP.getSaveObject();
-			d.baseShieldResistances = nBaseShield.getSaveObject();			
+			d.baseShieldResistances = nBaseShield.getSaveObject();
 			
 			delete d.lustVuln;
 			delete d.resistances;
@@ -686,7 +684,7 @@ package classes.Characters
 				addPerkValue("Fecund Figure", 4, -(totalDays)); // Gains
 			}
 			
-			if(perkv4("Fecund Figure") < 0) setPerkValue("Fecund Figure", 4, 0);			
+			if(perkv4("Fecund Figure") < 0) setPerkValue("Fecund Figure", 4, 0);
 		}
 		
 		private function buttslutBootyGrowth(totalDays:int):void

@@ -604,8 +604,8 @@ public function chooseHairColor():void {
 	{
 		addButton(0,"Black",applyHairColor,"black");
 		addButton(1,"Brown",applyHairColor,"brown");
-		addButton(2,"Dirty Blond",applyHairColor,"dirty blond");
-		addButton(3,"Blond",applyHairColor,"blond");
+		addButton(2,"Dirty Blonde",applyHairColor,"dirty blonde");
+		addButton(3,"Blonde",applyHairColor,"blonde");
 		addButton(4,"Auburn",applyHairColor,"auburn");
 		addButton(5,"Red",applyHairColor,"red");
 		addButton(6,"Gray",applyHairColor,"gray");
@@ -760,7 +760,7 @@ public function applySkinTone(skinTone:String = "pale"):void {
 			else pc.cocks[0].cockColor = "pink";
 		}
 	}
-	chooseBreastSize();	
+	chooseBreastSize();
 }
 
 //Boob Size:
@@ -1833,7 +1833,7 @@ public function getFoodAndDrink():void {
 	//[Male] [Female]
 	clearMenu();
 	addButton(0, "Male", function():void { setRivalGender(1); rivalSpillsTheBeans(); } );
-	addButton(1, "Female", function():void { setRivalGender(3); rivalSpillsTheBeans(); } );	
+	addButton(1, "Female", function():void { setRivalGender(3); rivalSpillsTheBeans(); } );
 }
 
 public function jackJillSkip():void
@@ -2142,8 +2142,8 @@ public function setBabyValuesOptions(response:String = "intro"):void
 			{
 				colorList.push(["Black", "black"]);
 				colorList.push(["Brown", "brown"]);
-				colorList.push(["Dirty Blond", "dirty blond"]);
-				colorList.push(["Blond", "blond"]);
+				colorList.push(["Dirty Blonde", "dirty blonde"]);
+				colorList.push(["Blonde", "blonde"]);
 				colorList.push(["Auburn", "auburn"]);
 				colorList.push(["Red", "red"]);
 				colorList.push(["Gray", "gray"]);

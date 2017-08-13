@@ -616,7 +616,7 @@ public function rideLiammesSuperGayCock():void
 	author("HugsAlright");
 	output("As your mouth is thoroughly filled with flat asuar-tongue, Liamme starts to push himself into you, to the point where you can feel his bulge steadily growing against your [pc.belly]. If you were to guess, this pent-up puppy needs a nice, warm hole to sheath his puppy-prick in; why not give him one? With a smirk slowly widening on your face, your hands dart down to Liamme’s slim waist and get a firm grip. In one smooth motion you turn the two of you around and push the ausar onto the mattress. Your kiss breaks as the femboy falls backwards, giggling like the horny piece of ass he is until he hits the bed. You join him on the mattress soon after, straddling his body on all fours, able to see nothing but the yearning and desire displayed in his big blue eyes.");
 	output("\n\nYou give him a warm smile and return to the kiss, your [pc.lips] connecting with his cushy cockpillows for a long minute before your tongues start slipping and sliding against each other. Liamme’s breath stutters as muffled moans are released into your mouth with each movement of your [pc.tongue]. ");
-	if(pc.isAssExposed()) output("It seems your lover is eager to get things started: his blonde-furred hands reach for your [pc.lowerGarments] and start pulling. You let him, happy to have the trappy ausar strip you down until you’re naked atop him.");
+	if(!pc.isAssExposed()) output("It seems your lover is eager to get things started: his blonde-furred hands reach for your [pc.lowerGarments] and start pulling. You let him, happy to have the trappy ausar strip you down until you’re naked atop him.");
 	else output("Your lover seems eager to get things started, his blonde-furred hands moving down to caress your [pc.SkinFurScales] with downy fuzz.");
 	output(" You shudder as Liamme’s surprisingly skilled hands have their way with your body, grasping and rubbing along all of your most sensitive spots.");
 
@@ -645,7 +645,7 @@ public function rideLiammesSuperGayCock():void
 	if(x >= 0)
 	{
 		output("\n\nHis pointed cockhead brushes against the folds of your [pc.vagina " + x + "], making your breath shudder and your body quiver. ");
-		if(pc.vaginalVirgin && pc.tailCount > 0 && pc.race().indexOf("ausar") > -1) output("Unable to control it, your [pc.tail] starts to wag gleefully, a sheer indicator of your excitement at the thought of this trappy pup being your first. ");
+		if(pc.vaginalVirgin && pc.tailCount > 0 && pc.catDog("nyan", "bork", false) == "bork") output("Unable to control it, your [pc.tail] starts to wag gleefully, a sheer indicator of your excitement at the thought of this trappy pup being your first. ");
 		output("With no intention of not having this dick inside you, you start to slide down Liamme’s shaft, its tapered tip easily spreading your nether lips thanks to your lovingly applied lubrication. The ausar boy beneath you is happy to assist you on your ride down, pushing on your thighs, guiding you down his doggy-dong with a firm grip. Already a bit worked up from your oral adventure earlier, you moan loudly, the feeling of your lover’s cock spreading you wider already overwhelming your mind with lust. By the time you reach Liamme’s thick, red knot, he’s already going to ");
 		if(silly) output("town");
 		else output("work");
@@ -671,7 +671,7 @@ public function rideLiammesSuperGayCock():void
 	else
 	{
 		output("\n\nHis pointed cockhead brushes against your [pc.asshole], making your breath shudder and body quiver. ");
-		if(pc.analVirgin && pc.tailCount > 0 && pc.race().indexOf("ausar") > -1) output("Unable to control it, your [pc.tail] starts to wag gleefully, a sheer indicator of your excitement at the thought of this trappy pup being your first. ");
+		if(pc.analVirgin && pc.tailCount > 0 && pc.catDog("nyan", "bork", false) == "bork") output("Unable to control it, your [pc.tail] starts to wag gleefully, a sheer indicator of your excitement at the thought of this trappy pup being your first. ");
 		output("With no intention of not having this dick inside you, you start to slide down Liamme’s shaft, its tapered tip easily spreading your pucker thanks to your lovingly applied lubrication. The ausar boy beneath you is happy to assist you on your ride down, pushing on your thighs, guiding you down his doggy-dong with a firm grip. Already a bit worked up from your oral adventure earlier, you moan loudly, the feeling of your lover’s cock spreading you wider already overwhelming your mind with lust. By the time you reach Liamme’s thick, red knot, he’s already going to ");
 		if(silly) output("town");
 		else output("work");

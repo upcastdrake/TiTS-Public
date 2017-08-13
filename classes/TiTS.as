@@ -128,6 +128,7 @@
 		//Followers
 		include "../includes/follower/anno.as";
 		include "../includes/follower/azra.as";
+		include "../includes/follower/azraExpeditions.as";
 		include "../includes/follower/celise.as";
 		include "../includes/follower/celiseGiga.as";
 		include "../includes/follower/multi_interactions.as";
@@ -160,6 +161,7 @@
 		include "../includes/events/kiroCrewQuest/buttslutinator.as";
 		include "../includes/events/kiroCrewQuest/omnisuitExtras.as";
 		include "../includes/events/kiroCrewQuest/orgasmender.as";
+		include "../includes/events/pyriteSatelliteRecovery.as";
 		include "../includes/events/steph_on_demand.as";
 		include "../includes/events/tentacle_psychic_hatchling.as";
 		
@@ -211,6 +213,7 @@
 		include "../includes/vesperia/gloryhole.as";
 		include "../includes/vesperia/kaede.as";
 		include "../includes/vesperia/kally.as";
+		include "../includes/vesperia/luca.as";
 		include "../includes/vesperia/mabbs.as";
 		include "../includes/vesperia/rooms.as";
 		include "../includes/vesperia/roomFunctions.as";
@@ -332,6 +335,7 @@
 		include "../includes/myrellion/renvra.as";
 		include "../includes/myrellion/rooms.as";
 		include "../includes/myrellion/roomFunctions.as";
+		include "../includes/myrellion/seer.as";
 		include "../includes/myrellion/steph.as";
 		include "../includes/myrellion/tavern.as";
 		include "../includes/myrellion/taivrasPalace.as";
@@ -342,6 +346,10 @@
 		include "../includes/myrellion/wetraxxel.as";
 		include "../includes/myrellion/xanthe.as";
 		include "../includes/myrellion/xenogenbiotech.as";
+		
+		// GASTIGOTH!
+		include "../includes/gastigoth/gastigoth.as";
+		include "../includes/gastigoth/rooms.as";
 		
 		// Karaquest 2- Karaharder.
 		include "../includes/events/karaquest2/content.as";
@@ -367,6 +375,7 @@
 		include "../includes/uveto/kaede.as";
 		include "../includes/uveto/kirila.as";
 		include "../includes/uveto/korgonneFemaleHostile.as";
+		include "../includes/uveto/krym.as";
 		include "../includes/uveto/milodanMaleHostile.as";
 		include "../includes/uveto/natalie.as";
 		include "../includes/uveto/nayna.as";
@@ -489,7 +498,7 @@
 
 			trace("TiTS Constructor")
 
-			version = "0.7.66";
+			version = "0.7.78";
 
 			//temporary nonsense variables.
 			temp = 0;
@@ -538,6 +547,7 @@
 			kquest2InitRooms();
 			initUvetoRooms();
 			initUvetoRoomsII();
+			initGastigothRooms();
 			kiInitRooms();
 			initVesperiaRoom();
 			
@@ -656,7 +666,7 @@
 				trace("Button " + evt.currentTarget.caption.text + " clicked.");
 			}
 			
-			if (evt.currentTarget.arg == undefined)
+			if (evt.currentTarget.arg === undefined)
 			{
 				if (evt.currentTarget.func != null) evt.currentTarget.func();
 			}
@@ -845,10 +855,12 @@
 				{
 					this.userInterface.showLevelUpPerks(pc);
 				}
-				// else if ((pc as PlayerCharacter).unclaimedGenericPerks > 0)
-				//{
-				//		this.userInterface.showLevelUpGenericPerks(pc);
-				//}
+				/*
+				else if ((pc as PlayerCharacter).unclaimedGenericPerks > 0)
+				{
+					this.userInterface.showLevelUpGenericPerks(pc);
+				}
+				*/
 				userInterface.DeGlowButtons();
 				this.userInterface.levelUpButton.Glow();
 			}
@@ -1385,11 +1397,23 @@
 		{
 			return chars["MIRRIN"];
 		}
-		
 		public function get fisianna():Fisianna
 		{
 			return chars["FISIANNA"];
 		}
+		public function get azra():Azra
+		{
+			return chars["AZRA"];
+		}
+		public function get zil9tails():Zil9Tail
+		{
+			return chars["ZIL9TAILS"];
+		}
+		public function get krymhilde():Krym
+		{
+			return chars["KRYM"];
+		}
+
 		public function testShipCombat():void
 		{
 			CombatManager.newSpaceCombat();

@@ -129,7 +129,7 @@ public function kq2TravelToKara(shortTravel:Boolean):void
 	output("\n\nYou take a steadying breath and ease your ship into the crack in the rock. You’re quickly bathed in darkness, no light from the sun or moon to guide you past the craggy cave mouth. A moment of doubt passes, before being blasted away by blinding light shining from inside the cavern. Your ship’s shielding keeps the worst of it at bay, just making you squint as the view outside consolidates into several large floodlights mounted on the walls, hanging over some kind of catwalk.");
 
 	output("\n\nAnother ship is parked ahead, a sleek, blue-and-white freighter");
-	if (9999 == 0) output(" not much bigger than your old Z14");
+	if (PCShipModel() != "Z14") output(" not much bigger than your old Z14");
 	else output(" not much bigger than your own ship");
 	output(". Your comms bleep with an incoming message.");
 
@@ -188,10 +188,7 @@ public function kq2TravelToKara(shortTravel:Boolean):void
 	else output("<i>“Sure, come on in,”</i> you say, waving her aboard.");
 	output(" You turn and lead her out of the airlock and into the ship’s common area.");
 
-	output("\n\n<i>“Nice ship,”</i> she murmurs, a gloved hand running along the bulkhead as she enters, looking cautiously around. <i>“Haven’t been aboard a");
-	// {ship model}
-	if(9999 == 9999) output(" Z14")
-	output(" in a while.”</i>");
+	output("\n\n<i>“Nice ship,”</i> she murmurs, a gloved hand running along the bulkhead as she enters, looking cautiously around. <i>“Haven’t been aboard " + indefiniteArticle(PCShipModel()) + " in a while.”</i>");
 
 	//if PC has Anno aboard:
 	if (annoIsCrew())
@@ -205,7 +202,7 @@ public function kq2TravelToKara(shortTravel:Boolean):void
 	{
 		if (!annoIsCrew()) output("\n\nYou hear footsteps coming your way. Both you and Kara turn to see Reaha");
 		else output("\n\nThe moment Anno leaves, Reaha comes out of her quarters,");
-		output(" padding down the corridor, moaning slightly as an auto-milker attached to her breasts buzzes happily. She stops and blinks at Kara, her own bare breasts jiggling as the milk is sucked out of them.");	
+		output(" padding down the corridor, moaning slightly as an auto-milker attached to her breasts buzzes happily. She stops and blinks at Kara, her own bare breasts jiggling as the milk is sucked out of them.");
 
 		output("\n\nKara returns the stare, her feline tails moving more quickly behind her. <i>“That looks... really good,”</i> she purrs, eyes affixed to the cow-girl’s bosom.");
 
@@ -1266,7 +1263,7 @@ public function kq2EncounterKhan():void
 	CombatManager.victoryScene(kq2KhanPCVictory);
 	CombatManager.lossScene(kq2KhanPCDefeat);
 	CombatManager.displayLocation("DR KHAN");
-	CombatManager.encounterText("You’re fighting Doctor Khan, a kui-tan male with a pair of balls"+ (flags["MET_KIRO"] == undefined ? " that look more like a couple economy-sized beanbag chairs underneath him." : " that would make even Kiro jealous -- or wet. It’s hard to tell!") +" The doctor’s carrying an over-sized lightning gun, but is otherwise unarmed and unarmored -- he’s sitting buck naked on his mammoth balls. A shimmering green hardlight device encloses his cock, which seems to be at full mast, but is completely untended to by the girls surrounding him.\n\nSeveral gold myr girls surround the doctor, fawning over him with blissful, vapid expressions on their faces. They’re clad in nothing but open-faced lab coats, showing off bare breasts and groins, and each wears a small metal collar around her neck, displaying a tiny holographic tag. They lovingly caress his sack, chest, any inch of tender flesh save for the light-bound cock between his raised legs.");
+	CombatManager.encounterText("You’re fighting Doctor Khan, a kui-tan male with a pair of balls"+ (!metKiro() ? " that look more like a couple economy-sized beanbag chairs underneath him." : " that would make even Kiro jealous -- or wet. It’s hard to tell!") +" The doctor’s carrying an over-sized lightning gun, but is otherwise unarmed and unarmored -- he’s sitting buck naked on his mammoth balls. A shimmering green hardlight device encloses his cock, which seems to be at full mast, but is completely untended to by the girls surrounding him.\n\nSeveral gold myr girls surround the doctor, fawning over him with blissful, vapid expressions on their faces. They’re clad in nothing but open-faced lab coats, showing off bare breasts and groins, and each wears a small metal collar around her neck, displaying a tiny holographic tag. They lovingly caress his sack, chest, any inch of tender flesh save for the light-bound cock between his raised legs.");
 
 	clearMenu();
 	addButton(0, "Fight!", CombatManager.beginCombat);
@@ -2005,7 +2002,7 @@ public function kq2CapturedByPiratesBadEndII():void
 	output("\n\nYou nod, slowly, dread forming a knot in your stomach. What’s about to happen to you?");
 
 	output("\n\n<i>“Be a good");
-	if (pc.race().indexOf("ausar") != -1) output(" puppy");
+	if (pc.catDog("nyan", "bork", false) == "bork") output(" puppy");
 	else output(pc.mf(" boy", " girl"));
 	output(", and you won’t even notice it’s there. Unless I decide to play with it, that is. See, you’ve got some fire in you. That meek, beaten act doesn’t suit you... and it doesn’t fool me. You’ve seen some action and adventure, haven’t you?”</i>");
 

@@ -27,22 +27,33 @@ package classes.Ships.Actions
 		
 		override public function Implementor(user:SpaceShip, target:SpaceShip, playerGroup:Array, hostileGroup:Array):void
 		{
-			output(user.Name + " has used a test action!");
-			
-			var se:StatusEffectPayload = new StatusEffectPayload(
-				"Test Effect", 
-				{ testValue: 1 }, 
-				3, 
-				StatusEffectPayload.DURATION_ROUNDS, 
-				StatusIcons.Icon_RadioSignal, 
-				true, 
-				false,
-				"ExampleOnRemove",
-				"ExampleOnCreate",
-				"ExampleOnRoundStart",
-				"ExampleOnRoundEnd");
+			var se:StatusEffectPayload = target.GetStatusEffect("Test Effect");
+			if (se == null)
+			{
+				output(user.Name + " has used a test action!");
 				
-			target.AddStatusEffect(se);
+				se = new StatusEffectPayload(
+					"Test Effect", 
+					{ testValue: 1 }, 
+					3, 
+					StatusEffectPayload.DURATION_ROUNDS, 
+					"Icon_RadioSignal", 
+					true, 
+					false,
+					"ExampleOnRemove",
+					"ExampleOnCreate",
+					"ExampleOnRoundStart",
+					"ExampleOnRoundEnd");
+				se.TooltipHeader = "A Test Effect";
+				se.TooltipBody = "This effect is created by a test action that is used to test ship combat output order.";
+				
+				target.AddStatusEffect(se);
+			}
+			else
+			{
+				output(user.Name + " reapplied the effect from the test action!");
+				se.Duration = 3;
+			}
 		}
 	}
 

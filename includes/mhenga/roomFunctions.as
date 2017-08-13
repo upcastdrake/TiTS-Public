@@ -32,7 +32,7 @@ public function xenogenOutsideBlurb():Boolean
 	if(zilXenogenProtestBonus()) return true;
 	if(hours < 6 || hours >= 17)
 	{
-		output("\n\n<b>The doorway to the north is currently marked “Closed.”</b> A notice declares that it will be open again at 6:00 standard terran time.");		
+		output("\n\n<b>The doorway to the north is currently marked “Closed.”</b> A notice declares that it will be open again at 6:00 standard terran time.");
 	}
 	else
 	{
@@ -56,6 +56,7 @@ public function mhengaActiveBounty():Boolean
 	
 	if(flags["SEEN_JULIANS_AD"] == undefined) openQuests++;
 	if(synthSapNoticeUnlock() && flags["SEEN_SYNTHSAP_AD"] == undefined) openQuests++;
+	if(flags["SEEN_SATELLITE_AD"] == undefined) openQuests++;
 	
 	if(openQuests > 0) return true;
 	return false;
@@ -64,7 +65,9 @@ public function bountyBoardExtra():Boolean
 {
 	output("\n\nA large bulletin board has been erected against the wall of the building to the north.");
 	if(mhengaActiveBounty()) output(" <b>There are new notices there.</b>");
-	addButton(0,"Bulletins",checkOutBountyBoard);
+	var btnSlot:int = 0;
+	addButton(btnSlot++,"Bulletins",checkOutBountyBoard);
+	repeatRepresentativeSatelliteShit(btnSlot++);
 	return false;
 }
 public function checkOutBountyBoard():void
@@ -104,7 +107,18 @@ public function checkOutBountyBoard():void
 		}
 		output(" Xenogen Biotech Labs is seeking samples of ‘Sky Sap’ from the vanae natives. They are offering a monetary reward to anyone who can provide a steady supply of this substance.");
 	}
-	
+	output("\n\n");
+	if(flags["SEEN_SATELLITE_AD"] == undefined)
+	{
+		output("<b>New:</b>");
+		flags["SEEN_SATELLITE_AD"] = 1;
+	}
+	else
+	{
+		if(flags["SATELLITE_QUEST"] == 2) output("<b>Completed:</b>");
+		else output("<b>Seen Before:</b>");
+	}
+	output(" Pyrite Industries requires assistance locating a crashed satellite in the jungle. They are offering a 2,500 credit bounty for the return of its stolen hard drive.");
 	processTime(2);
 	clearMenu();
 	addButton(0,"Next",mainGameMenu);
@@ -411,6 +425,7 @@ public function vanaeWarningBot():Boolean
 {
 	output("\n\n<b>A small, sleek drone bearing the U.G.C. Peacekeeper emblem is hovering here, puttering around in a small circle.</b> When you approach, the drone intones in a clearly mechanical voice: <i>“Peacekeeper Inoue has posted the following safety advisory: beyond this point, the southern area of jungle is classified as a level four threat and is to be avoided if at all possible.”</i>");
 	addButton(0,"Drone",talkToWarningDrone);
+	if(pyriteSatelliteLocationUnlocked()) output("\n\nThere’s a small streak of burned trees, all pushed aside as if by some massive impact, leading eastward. There’s a pillar of black smoke rising from that direction, too...");
 	return false;
 }
 
@@ -419,7 +434,7 @@ public function talkToWarningDrone():void
 	clearOutput();
 	author("Savin");
 	showName("\nDRONE");
-	showBust("DRONE");
+	showBust("UGC_DRONE");
 	output("You step up to the drone and ask it for more information.");
 	output("\n\n<i>“Peacekeeper Inoue has classified the local species ‘Vanae’ as a level four threat. This species is highly aggressive. Only well-equipped explorers with significant off-world experience should proceed beyond this point.”</i>");
 	if(flags["SEXED_PENNY"] != undefined) output("\n\nAs you step back from the drone, it chirps and suddenly displays a holographic image of Penny. <i>“Hi, mate. I thought you might find this! Be safe out there, alright?”</i>\n\nYou smile and nod as the bonus message flickers off.");

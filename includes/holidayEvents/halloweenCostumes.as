@@ -18,6 +18,7 @@ public function halloweenShipMove():void
 	currentLocation = "SHIP INTERIOR";
 	generateMap();
 	showLocationName();
+	clearBust();
 }
 
 public function hollidayOweenAlert():void
@@ -40,7 +41,7 @@ public function hollidayOweenAlert():void
 		MailManager.readEntry("the_masque", GetGameTimestamp());
 	}
 	
-	//// Adds <i>“Poe A”</i> to navigation list
+	//// Adds “Poe A” to navigation list
 	processTime(3);
 	flags["HOLIDAY_OWEEN_ACTIVATED"] = GetGameTimestamp();
 	clearMenu();
@@ -92,14 +93,14 @@ public function holidayoweenPartDues():void
 
 public function holidayMenu():void
 {
+	clearMenu();
 	addButton(0,"Talk",talkToHoliday);
 	if(pc.credits >= 1000)
 	{
 		addButton(1,"GoblinSuit",goblinCostume,undefined,"Goblin","You could dress up as some kind of fantasy goblin.\n\nPrice: 1000 credits");
 		addButton(2,"Helmet",metroidMaskParody,undefined,"Helmet","This helmet looks pretty spacy! Rad!\n\nPrice: 1000 credits");
 		if(!pc.hasGenitals()) addDisabledButton(3,"Armor","Armor","Looks like that outfit is for people with genitalia.");
-		else if(flags["MET_SYRI"] == undefined) addButton(3,"Armor",greenArmor,undefined,"Armor","There’s a suit of dark green armor on the rack, with a black bodysuit underneath holding the skimpy green plates together. You’re pretty sure it’s modeled after some video game character. The armor’s probably not real, but it’ll make a decent enough cosplay for a night on the town!\n\nPrice: 1000 credits");
-		else addButton(3,"Armor",greenArmor,undefined,"Armor","There’s a suit of dark green armor on the rack, with a black bodysuit underneath holding the skimpy green plates together. You’re pretty sure it’s modeled after some video game character... didn’t you see Syri playing as this chick once? The armor’s probably not real, but it’ll make a decent enough cosplay for a night on the town!\n\nPrice: 1000 credits");
+		else addButton(3,"Armor",greenArmor,undefined,"Armor",("There’s a suit of dark green armor on the rack, with a black bodysuit underneath holding the skimpy green plates together. You’re pretty sure it’s modeled after some video game character." + (flags["MET_SYRI"] == undefined ? "" : ".. didn’t you see Syri playing as this chick once?") + " The armor’s probably not real, but it’ll make a decent enough cosplay for a night on the town!\n\nPrice: 1000 credits"));
 		if(pc.isTaur()) addDisabledButton(4,"HorseSuit","HorseSuit","It looks like the bottom half of a centaur... though you have a tauric lower half already.");
 		else if(pc.isPregnant()) addDisabledButton(4,"HorseSuit","HorseSuit","It looks like the bottom half of a centaur. To avoid complications, you probably shouldn’t wear this while pregnant.");
 		else if(pc.hasGenitals() && flags["UNLOCKED_JUNKYARD_PLANET"] != undefined) addButton(4,"HorseSuit",centaurBunsBunsBuns,undefined,"Horse Suit","It looks like the bottom half of a centaur. Must be robotic.\n\nPrice: 1000 credits");
@@ -158,41 +159,48 @@ public function leaveLikeABitch():void
 	output("\n\nYou think back on the strange, strangled, chanting cry that the masked creatures had been yelling. Now that you think of it, they may have been saying <i>“GPD! Freeze!”</i> Grabbing the mask and tearing it open, you find a small chip buried in the velvet lining with itty, bitty, tiny prongs barely poking through on the inside.");
 	output("\n\nNo wonder they were chasing you: <b>thanks to her sabotaged mask, you look like Holiday!</b>");
 	processTime(44);
-	if(pc.hasTailCock() || pc.hasTailCunt())
-	{
-		if(pc.tailGenitalUnlocked(0)) pc.tailGenital = 0;
-		if(pc.tailGenitalArgUnlocked(0)) pc.tailGenitalArg = 0;
-		if(pc.tailGenitalColorUnlocked("null")) pc.tailGenitalColor = "";
-		flags["CUNT_TAIL_PREGNANT_TIMER"] = undefined;
-		flags["DAYS_SINCE_FED_CUNT_TAIL"] = undefined;
-	}
-	if(pc.tailCountUnlocked(1)) pc.tailCount = 1;
-	if(pc.tailTypeUnlocked(GLOBAL.TYPE_DEMONIC)) pc.tailType = GLOBAL.TYPE_DEMONIC;
-	if(pc.tailFlagsUnlocked([GLOBAL.FLAG_PREHENSILE,GLOBAL.FLAG_LONG]))
-	{
-		pc.clearTailFlags();
-		pc.addTailFlag(GLOBAL.FLAG_PREHENSILE);
-		pc.addTailFlag(GLOBAL.FLAG_LONG);
-	}
 	
-	if(pc.hairLength < 12 && pc.hairLengthUnlocked(12)) pc.hairLength = 12;
-	if(pc.hairColorUnlocked("pink")) pc.hairColor = "pink";
-	if(pc.hairTypeUnlocked(GLOBAL.HAIR_TYPE_REGULAR)) pc.hairType = GLOBAL.HAIR_TYPE_REGULAR;
-	if(pc.hornsUnlocked(2) && pc.hornTypeUnlocked(GLOBAL.TYPE_DEMONIC))
-	{
-		pc.removeHorns();
-		pc.horns = 2;
-		pc.hornLength = 2;
-		pc.hornType = GLOBAL.TYPE_DEMONIC;
-	}
-	if(pc.earTypeUnlocked(GLOBAL.TYPE_DEMONIC)) 
-	{
-		pc.earType = GLOBAL.TYPE_DEMONIC;
-		pc.earLength = 2;
-	}
-	if(pc.eyeColorUnlocked("glowing amber")) pc.eyeColor = "glowing amber";
-	if(pc.eyeTypeUnlocked(GLOBAL.TYPE_DEMONIC)) pc.eyeType = GLOBAL.TYPE_DEMONIC;
-	if(pc.wingTypeUnlocked(GLOBAL.TYPE_SMALLDEMONIC)) pc.shiftWings(GLOBAL.TYPE_SMALLDEMONIC, 4);
+	var tailCnt:Number = pc.tailCount;
+	var tailGen:Number = GLOBAL.TAIL_GENITAL_NONE;
+	if (pc.hasTailCock()) tailGen = GLOBAL.TAIL_GENITAL_COCK;
+	else if (pc.hasTailCunt()) tailGen = GLOBAL.TAIL_GENITAL_VAGINA;
+	var tailGenArg:Number = pc.tailGenitalArg;
+	var tailGenCol:String = pc.tailGenitalColor;
+	
+	pc.removeTails();
+	if(tailCnt <= 0) pc.tailCount = 1;
+	else pc.tailCount = tailCnt;
+	pc.tailType = GLOBAL.TYPE_DEMONIC;
+	pc.addTailFlag(GLOBAL.FLAG_PREHENSILE);
+	pc.addTailFlag(GLOBAL.FLAG_LONG);
+	if (tailGen == GLOBAL.TAIL_GENITAL_COCK) pc.addTailFlag(GLOBAL.FLAG_TAILCOCK);
+	if (tailGen == GLOBAL.TAIL_GENITAL_VAGINA) pc.addTailFlag(GLOBAL.FLAG_TAILCUNT);
+	pc.tailGenital = tailGen;
+	pc.tailGenitalArg = tailGenArg;
+	pc.tailGenitalColor = tailGenCol;
+	
+	if(pc.hairLength < 12) pc.hairLength = 12;
+	pc.hairColor = "pink";
+	pc.hairType = GLOBAL.HAIR_TYPE_REGULAR;
+	
+	var hornLen:Number = pc.hornLength;
+	
+	pc.removeHorns();
+	pc.horns = 2;
+	if(hornLen < 2) pc.hornLength = 2;
+	else if(hornLen > 8) pc.hornLength = 8;
+	else pc.hornLength = hornLen;
+	pc.hornType = GLOBAL.TYPE_DEMONIC;
+	
+	pc.earType = GLOBAL.TYPE_DEMONIC;
+	if(pc.earLength < 2) pc.earLength = 2;
+	if(pc.earLength > 6) pc.earLength = 6;
+	
+	pc.eyeColor = "glowing amber";
+	pc.eyeType = GLOBAL.TYPE_DEMONIC;
+	
+	pc.shiftWings(GLOBAL.TYPE_SMALLDEMONIC, 4);
+	
 	flags["HOLIDAY_OWEEN_LEFT"] = 1;
 	halloweenShipMove();
 	clearMenu();
@@ -211,7 +219,7 @@ public function goblinCostume():void
 	processTime(4);
 	clearMenu();
 	//[Goblin] [Costume] [Mask] [Leave]
-	addButton(0,"Buy It",chooseDatGobboCostume,undefined,"Buy It","1000 credits.");
+	addButton(0,"Buy It",chooseDatGobboCostume,undefined,"Buy It","Costs 1000 credits.");
 	addButton(14,"Back",holidayMenu);
 }
 
@@ -240,6 +248,7 @@ public function chooseDatGobboCostume():void
 public function goblinPartTwo():void
 {
 	clearOutput();
+	clearBust();
 	showName("OUT ON\nTHE TOWN");
 	author("Adjatha");
 	output("Enjoying the lingering sting of Holiday’s slap, you head back to the main streets, noticing that you forgot to grab any shoes. Oh well, you decide, the pavement feels good on your bare soles, and it’s hard enough to walk straight as is! Eventually you find that a swaying sort of strut seems to work best, giving your broad hips plenty of room to swing while offering your head-sized breasts plenty of opportunity to jiggle against the straps barely restraining them. The few people you pass on the way back give you a cursory glance before turning their attention to you entirely, undisguised lust clear even through their masks. You fiddle with the ring-like collar around your neck, contemplating opening the suit just long enough to show them who’s inside, but decide not to break the illusion. Besides, the suit’s slightly warm interior has finally matched the heat of your own body, making it so comfortable you’ve got to give yourself a little grope, squeezing your waist with a delighted giggle.");
@@ -321,7 +330,7 @@ public function metroidMaskParody():void
 	//[Helmet] [Costume] [Bodysuit] [Leave]
 	processTime(4);
 	clearMenu();
-	addButton(0,"Buy It",samusCostumeGo,undefined,"Buy It","1000 credits.");
+	addButton(0,"Buy It",samusCostumeGo,undefined,"Buy It","Costs 1000 credits.");
 	addButton(14,"Back",holidayMenu);
 }
 
@@ -342,10 +351,11 @@ public function samusCostumeGo():void
 	output("\n\n<i>Squeeeee...</i>");
 
 	//[PC.breasts & PC.ass increase 1 step without outputting any text]
-	for(var x:int = 0; x < pc.bRows(); x++)
+	var i:int = 0;
+	for(i = 0; i < pc.bRows(); i++)
 	{
-		pc.breastRows[x].breastRatingRaw++;
-		pc.breastRows[x].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
 	}
 	pc.libido(5);
 	pc.buttRating(1);
@@ -365,10 +375,11 @@ public function bountyHuntsPart2():void
 	output("\n\n<i>Squeeeee...</i>");
 
 	//[Pc.breasts & PC.ass increase 1 step without outputting any text.]
-	for(var x:int = 0; x < pc.bRows(); x++)
+	var i:int = 0;
+	for(i = 0; i < pc.bRows(); i++)
 	{
-		pc.breastRows[x].breastRatingRaw++;
-		pc.breastRows[x].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
 	}
 	pc.buttRating(1);
 	pc.hipRating(1);
@@ -381,11 +392,11 @@ public function bountyHuntsPart2():void
 	output("\n\n<i>Squeeeee...</i>");
 
 	//[Pc.breasts & PC.ass increase 1 step without outputting any text.]
-	for(var y:int = 0; y < pc.bRows(); y++)
+	for(i = 0; i < pc.bRows(); i++)
 	{
-		pc.breastRows[y].breastRatingRaw++;
-		pc.breastRows[y].breastRatingRaw++;
-		pc.breastRows[y].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
 	}
 	pc.buttRating(1);
 	pc.hipRating(1);
@@ -399,13 +410,13 @@ public function bountyHuntsPart2():void
 	output("\n\n<i>Squeee!</i>");
 
 	//[Pc.breasts & PC.ass increase 3 steps without outputting any text.]
-	for(x = 0; x < pc.bRows(); x++)
+	for(i = 0; i < pc.bRows(); i++)
 	{
-		pc.breastRows[x].breastRatingRaw++;
-		pc.breastRows[x].breastRatingRaw++;
-		pc.breastRows[x].breastRatingRaw++;
-		pc.breastRows[x].breastRatingRaw++;
-		pc.breastRows[x].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
+		pc.breastRows[i].breastRatingRaw++;
 	}
 	pc.buttRating(2);
 	pc.hipRating(2);
@@ -579,7 +590,7 @@ public function greenArmor():void
 	output("\n\nWould you like to buy the amazon-like armor, or look at another costume?");
 	processTime(4);
 	clearMenu();
-	addButton(0,"Buy It",chooseToBeMissChief,undefined,"Buy It","1000 credits");
+	addButton(0,"Buy It",chooseToBeMissChief,undefined,"Buy It","Costs 1000 credits.");
 	addButton(14,"Back",holidayMenu);
 }
 
@@ -641,6 +652,7 @@ public function chooseToBeMissChief():void
 public function barbariannaCosplay():void
 {
 	clearOutput();
+	clearBust();
 	showName("OUT ON\nTHE TOWN");
 	output("You laugh it off and strut your stuff, swaying your hips and affecting all the cool self-assurity that a giant amazon ought to have among a throng of people so much smaller and weaker than you are. The act works better than you could have hoped and soon the crowd is parting for you like the Red Sea, the lustful gazes of dozens of men and women firmly settled on your ultra-generous cleavage, firm ass, and powerful");
 	if(pc.legCount == 1) output(" [pc.legNoun]");
@@ -783,7 +795,7 @@ public function annoPartyEpiloooogue():void
 {
 	clearOutput();
 	halloweenShipMove();
-	showName("THE\nSHIP");
+	//showName("THE\nSHIP");
 	author("Savin");
 
 	output("The taxi dumps you off, and this time you grab the girl by the waist, burying her face firmly into your tits as you find your ship, fumble with the security seal, and stumble drunkenly in.");
@@ -1000,7 +1012,7 @@ public function centaurBunsBunsBuns():void
 	output("\n\nWould you like to buy the centaur body or something else?");
 	processTime(2);
 	clearMenu();
-	addButton(0,"Buy It",buyTaurSuit,undefined,"Buy It","1000 credits.");
+	addButton(0,"Buy It",buyTaurSuit,undefined,"Buy It","Costs 1000 credits.");
 	addButton(14,"Back",holidayMenu);
 }
 
@@ -1104,6 +1116,7 @@ public function horsecockForHorseButts(config:int = 1):void
 public function taurStreetAdventure(config:int = 1):void
 {
 	clearOutput();
+	clearBust();
 	showName("OUT ON\nTHE TOWN");
 	output("The worst part is how right her assessment is. Now that you’re out in the open, prancing down a street, you can’t deny your own mounting arousal.");
 	if(pc.hasCock())
@@ -1221,7 +1234,7 @@ public function taurTFs(arg:int = 1):void
 	pc.removeStatusEffect("Uniball");
 	pc.balls = 0;
 	pc.ballSizeRaw = 3.4;
-	//Tallness boost to 6’ if below.
+	//Tallness boost to 6' if below.
 	if(pc.tallness < 72) pc.tallness = 72;
 	//Taurbody, ofcourse.
 	pc.legType = GLOBAL.TYPE_EQUINE;
@@ -1235,21 +1248,13 @@ public function taurTFs(arg:int = 1):void
 	if(70-pc.libido() < 10) pc.libido(10);
 	else pc.libido(70,true);
 	//All tails gone.
-	if(pc.hasTailCock() || pc.hasTailCunt())
-	{
-		pc.tailGenital = 0;
-		pc.tailGenitalArg = 0;
-		pc.tailGenitalColor = "";
-		flags["CUNT_TAIL_PREGNANT_TIMER"] = undefined;
-		flags["DAYS_SINCE_FED_CUNT_TAIL"] = undefined;
-	}
+	pc.removeTails();
 	pc.tailCount = 1;
 	pc.tailType = GLOBAL.TYPE_EQUINE;
-	pc.clearTailFlags();
 	pc.addTailFlag(GLOBAL.FLAG_LONG);
 	if(arg == 1 || arg == 3)
 	{
-		//22”</i> horsecock.
+		//22" horsecock.
 		pc.createCock();
 		pc.cocks[0].cLengthRaw = 22;
 		pc.cocks[0].cType = GLOBAL.TYPE_EQUINE;
@@ -1373,6 +1378,7 @@ public function ladyTaursFuckDane():void
 public function femTaurCostumeEpilogue():void
 {
 	clearOutput();
+	clearBust();
 	showName("MORNING\nAFTER");
 	output("You wake up with a pounding headache back on your ship, and out in space. You don’t remember anything about taking off - letting Holiday ride your back and slap your ass while Dane has you up against the wall? Sure, but nothing about the trip back to your ship. Heck, you’re even pretty sure a white-furred ausar lass had a scoreboard to keep track of how many creampies you got. You came harder than ever, but you’re feeling pretty sore now.");
 	output("\n\nIt isn’t until you check your ship’s logs that you stumble upon some clarity. There’s a new message, one you didn’t put in there. You hit play, bringing it up on the main screen. A cute, white-furred kaithrit pops up on screen, waving nervously.");
@@ -1507,6 +1513,7 @@ public function fuckLeithansAsTaur(arg:String = "M"):void
 public function mailTaurCostumeEpilogue():void
 {
 	clearOutput();
+	clearBust();
 	showName("HOURS\nLATER...")
 	output("Your memories of the night are an indistinct blur of fucking and drinking, sometimes simultaneously. Sa’andi and Ma’andi seemed insatiable at first, but after two or three cream fillings each, they settled right down, passed out in the corner like two drunken, six-legged angels.");
 	output("\n\nMore disturbing is the fact that you woke up onboard your ship... and that you aren’t on the planet any longer. You don’t remember anything about setting out into space - rearing up on a table and letting a galotian squeeze your load out onto Holidays tits? Sure, but nothing about the trip back to your ship. Heck, you’re even pretty sure that Ma’andi snuck her tail up your ass while you were mounting some white-furred ausar lass.");
@@ -1587,6 +1594,7 @@ public function centaurShitFromAlkahest():void
 public function maleTaurSubbyEpilogue():void
 {
 	clearOutput();
+	clearBust();
 	showName("HOURS\nLATER...")
 	output("Your memories of the night are an indistinct blur of humping, drinking, and cumming. No matter how times you did your best to paint the bar, you never got more than a few hands on your cock, draining your oozy horse-cock into laughing mouths or sloshing cups. You aren’t even sure how many times you came, just that your balls ache like they’ve been pumped dry.");
 	output("\n\nMore disturbing is the fact that you woke up onboard your ship... and that you aren’t on the planet any longer. You don’t remember anything about setting out into space - rearing up on a table and letting a galotian squeeze your load out onto Holidays tits? Sure, but nothing about the trip back to your ship. Heck, you’re even pretty sure that a curvy leithan snuck her tail up your ass while you were spanked by some white-furred ausar lass.");

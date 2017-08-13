@@ -226,7 +226,7 @@ public function xantheIsDommingPC():Boolean {
 public function buySomethingFromXanthe():void
 {
 	xantheShopInitialization();
-	buyItem();	
+	buyItem();
 }
 //[Armor] [Clothes] [Uwear, Upper] [Uwear, Lower]
 
@@ -1445,7 +1445,7 @@ public function getLeftByXantheSlooot():void
 	if(pc.hasVagina()) output("slippery snatch");
 	else output("basted butthole");
 	output(" is stretched open and Butch is slipped inside.");
-	//{Virgin: <b>You’ve lost your {anal} virginity!</b>}"
+	// Virgin: <b>You’ve lost your {anal} virginity!</b>
 	if(pc.hasVagina()) pc.cuntChange(x, 500, true, true, false);
 	else pc.buttChange(500,true,true,false);
 

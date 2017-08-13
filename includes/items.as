@@ -958,6 +958,7 @@ public function keyItemDisplay(filter:String = ""):void
 	var hasHolodisk:Boolean = false;
 	var hasPanty:Boolean = false;
 	var hasCollar:Boolean = false;
+	var hasRaskLoot:Boolean = false;
 	
 	output("<b><u>Key Items:</u></b>\n");
 	if(pc.keyItems.length > 0) 
@@ -969,21 +970,23 @@ public function keyItemDisplay(filter:String = ""):void
 			if
 			(	filter == ""
 			||	(filter == "<KEY>" && (pItem.storageName.indexOf(" Key") != -1 || pItem.storageName.indexOf(" Pass") != -1 || pItem.storageName.indexOf(" Membership") != -1))
+			||	(filter == "<RASKLOOT>" && InCollection(pItem.storageName, raskLootItems))
 			||	pItem.storageName.indexOf(filter) != -1
 			)
 			{
 				output(pItem.storageName + ((desc && pItem.tooltip.length > 0) ? (" - " + pItem.tooltip) : "") + "\n");
 				if(pItem.tooltip.length > 0) hasDesc = true;
 			}
-			if(pItem.storageName.indexOf(" Key") != -1 || pItem.storageName.indexOf(" Pass") != -1 || pItem.storageName.indexOf(" Membership") != -1) hasKey = true;
-			if(pItem.storageName.indexOf("Holodisk: ") != -1) hasHolodisk = true;
-			if(pItem.storageName.indexOf("Coupon - ") != -1) hasCoupon = true;
-			if(pItem.storageName.indexOf("Panties - ") != -1) hasPanty = true;
-			if(pItem.storageName.indexOf(" Collar") != -1) hasCollar = true;
+			if(!hasKey && (pItem.storageName.indexOf(" Key") != -1 || pItem.storageName.indexOf(" Pass") != -1 || pItem.storageName.indexOf(" Membership") != -1)) hasKey = true;
+			if(!hasHolodisk && pItem.storageName.indexOf("Holodisk: ") != -1) hasHolodisk = true;
+			if(!hasCoupon && pItem.storageName.indexOf("Coupon - ") != -1) hasCoupon = true;
+			if(!hasPanty && pItem.storageName.indexOf("Panties - ") != -1) hasPanty = true;
+			if(!hasCollar && pItem.storageName.indexOf(" Collar") != -1) hasCollar = true;
+			if(!hasRaskLoot && InCollection(pItem.storageName, raskLootItems)) hasRaskLoot = true;
 		}
 		output("\n");
 		
-		if(hasHolodisk || hasCoupon || hasPanty || hasCollar)
+		if(hasHolodisk || hasCoupon || hasPanty || hasCollar || hasRaskLoot)
 		{
 			if(filter == "") addDisabledButton(btn++, "All");
 			else addButton(btn++, "All", keyItemDisplay, "", "Filter: All", "View all Key Items.");
@@ -1007,6 +1010,15 @@ public function keyItemDisplay(filter:String = ""):void
 			if(hasCollar) {
 				if(filter == " Collar") addDisabledButton(btn++, "Collar");
 				else addButton(btn++, "Collar", keyItemDisplay, " Collar", "Filter: Collars", "View all collar items.");
+			}
+			if(hasRaskLoot) {
+				if(filter == "<RASKLOOT>")
+				{
+					addDisabledButton(btn++, "Rask Loot");
+					hasDesc = false;
+					addButton(13, "Dump Loot", removeRaskLootOption, undefined, "Dump Raskvel Loot", "Throw away your raskvel loot.");
+				}
+				else addButton(btn++, "Rask Loot", keyItemDisplay, "<RASKLOOT>", "Filter: Raskvel Loot", "View all raskvel loot items.");
 			}
 		}
 		if(hasDesc) addButton(13, ("Desc: " + (desc ? "On" : "Off")), keyItemDisplayToggleDesc, filter, "Descriptions", ("Toggle descriptions " + (desc ? "off" : "on") + "."));
@@ -1073,12 +1085,12 @@ public function inventoryDisplay():void
 	output("\n\n");
 }
 
+/*
 public function generalInventoryMenu():void
 {
 	clearOutput();
 	showBust("");
 	showName("\nINVENTORY");
-	var x:int = 0;
 	itemScreen = inventory;
 	useItemFunction = inventory;
 	
@@ -1144,6 +1156,45 @@ public function generalInventoryMenu():void
 	addButton(13, "Unequip", unequipMenu, undefined, "Unequip", "Unequip an item.");
 	addButton(14, "Back", mainGameMenu);
 }
+*/
+public function generalInventoryMenu():void
+{
+	showBust("");
+	showName("\nINVENTORY");
+	itemScreen = inventory;
+	useItemFunction = inventory;
+	
+	clearOutput();
+	output("What item would you like to use?");
+	if(pc.inventory.length > 10) output("\n(<b>Multiple pages of items are available. Please be aware of the page forward/back buttons in the lower right corner of the user interface when making your selections.</b>)");
+	output("\n\n");
+	inventoryDisplay();
+	
+	clearMenu();
+	var btnSlot:int = -5;
+	var i:int = 0;
+	while (true)
+	{
+		if (i % 10 == 0 && (i < pc.inventory.length || !i))
+		{
+			btnSlot += 5;
+			addButton(btnSlot+10, "Drop", dropItem, undefined, "Drop Item", "Drop an item to make room in your inventory.");
+			addButton(btnSlot+11, "Interact", itemInteractMenu, undefined, "Interact", "Interact with some of your items.");
+			addButton(btnSlot+12, "Key Item", keyItemDisplay, undefined, "Key Items", "View your list of key items.");
+			addButton(btnSlot+13, "Unequip", unequipMenu, undefined, "Unequip", "Unequip an item.");
+			addButton(btnSlot+14, "Back", mainGameMenu);
+		}
+		
+		if (i == pc.inventory.length) break;
+		
+		addItemButton(btnSlot, pc.inventory[i], useItem, pc.inventory[i]);
+		btnSlot++;
+		i++;
+	}
+	
+	//Set user and target.
+	itemUser = pc;
+}
 
 public function itemInteractMenu(counter:Boolean = false):Number
 {
@@ -1203,6 +1254,7 @@ public function itemInteractMenu(counter:Boolean = false):Number
 	return count;
 }
 
+/*
 public function combatInventoryMenu():void
 {
 	clearOutput();
@@ -1268,6 +1320,46 @@ public function combatInventoryMenu():void
 	//addButton(12, "", null, undefined, "", "");
 	addButton(13, "Unequip", unequipMenu, true, "Unequip", "Unequip an item.");
 	addButton(14, "Back", CombatManager.showCombatMenu);
+}
+*/
+public function combatInventoryMenu():void
+{
+	showName("\nINVENTORY");
+	itemScreen = inventory;
+	useItemFunction = inventory;
+	
+	clearOutput();
+	output("What item would you like to use?");
+	output("\n\n");
+	inventoryDisplay();
+	equipmentDisplay();
+	
+	clearMenu();
+	var btnSlot:int = -5;
+	var i:int = 0;
+	while (true)
+	{
+		if (i % 10 == 0 && (i < pc.inventory.length || !i))
+		{
+			btnSlot += 5;
+			addButton(btnSlot+13, "Unequip", unequipMenu, true, "Unequip", "Unequip an item.");
+			addButton(btnSlot+14, "Back", CombatManager.showCombatMenu);
+		}
+		
+		if (i == pc.inventory.length) break;
+		
+		var tItem:ItemSlotClass = pc.inventory[i];
+		if (InCollection(tItem.type, [GLOBAL.MELEE_WEAPON, GLOBAL.RANGED_WEAPON]) || tItem.combatUsable == true)
+		{
+			addItemButton(btnSlot, pc.inventory[i], combatUseItem, pc.inventory[i]);
+		}
+		else
+		{
+			addDisabledButton(btnSlot, pc.inventory[i].shortName + " x" + pc.inventory[i].quantity, StringUtil.toDisplayCase(pc.inventory[i].longName), "Cannot be used in combat.");
+		}
+		btnSlot++;
+		i++;
+	}
 }
 
 public function inventory():void 
@@ -1913,7 +2005,7 @@ public function populateTakeMenu(items:Array, type:String, func:Function = null)
 		{
 			addDisabledButton((menuInserts * 15) + 10, "Take");
 		}
-		if (_shipStorageMode != STORAGE_MODE_STORE) addButton((menuInserts * 15) + 11, "Store", shipStorageMode, [STORAGE_MODE_STORE, type], "Take from Inventory", "Take items from your inventory and place them in your ships storage.");
+		if (_shipStorageMode != STORAGE_MODE_STORE) addButton((menuInserts * 15) + 11, "Store", shipStorageMode, [STORAGE_MODE_STORE, type], "Take from Inventory", "Take items from your inventory and place them in your ship’s storage.");
 		else
 		{
 			addDisabledButton((menuInserts * 15) + 11, "Store");
@@ -2032,7 +2124,7 @@ public function storeItem(args:Array):void
 				{
 					var diff:int = sItem.stackSize - sItem.quantity;
 					sItem.quantity = sItem.stackSize;
-					item.quantity -= diff;					
+					item.quantity -= diff;
 				}
 			}
 		}
@@ -2051,7 +2143,7 @@ public function storeItem(args:Array):void
 		output("There isn’t enough room to store your item.");
 		
 		clearMenu();
-		addButton(0, "Switch", replaceInStorage, [item, type], "Switch Items", "Switch an item in your ships storage with one in your inventory.");
+		addButton(0, "Switch", replaceInStorage, [item, type], "Switch Items", "Switch an item in your ship’s storage with one in your inventory.");
 		addButton(14, "Back", shipStorageMenuType, type);
 		return;
 	}
@@ -2144,7 +2236,7 @@ public function takeItem(args:Array):void
 				{
 					var diff:int = sItem.stackSize - sItem.quantity;
 					sItem.quantity = sItem.stackSize;
-					item.quantity -= diff;					
+					item.quantity -= diff;
 				}
 			}
 		}
@@ -2163,7 +2255,7 @@ public function takeItem(args:Array):void
 		output("There isn’t enough room to take your item.");
 		
 		clearMenu();
-		addButton(0, "Switch", replaceInInventory, [item, type], "Switch Items", "Switch an item in your inventory with one in your ships storage.");
+		addButton(0, "Switch", replaceInInventory, [item, type], "Switch Items", "Switch an item in your inventory with one in your ship’s storage.");
 		addButton(14, "Back", shipStorageMenuType, type);
 		return;
 	}

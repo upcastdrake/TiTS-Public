@@ -847,7 +847,7 @@ public function watchTankBlowFirstPornLoad():void
 	output("\n\nThe disembodied voice of Tank’s ball-polishing enthusiast urges, <i>“Don’t make the viewers wait, Tank.”</i> Another giggle surfaces at his chosen pseudonym, swiftly forgotten when confronted by her stallion’s needs.");
 	output("\n\n<i>“Cum!”</i>");
 	output("\n\nTank throws his head back and howls, but the focus isn’t on his head. The feed cuts to a second camera, positioned above the tub for a bird’s-eye view of the coming cum-carnage. Pre-cum already fills the tub to half-way, even with the drain open and gurgling. Then tank’s flare flares wider, undoubtedly and obscenely equine. His urethra looks almost alien, protruding slightly from the otherwise smooth surface of his outlandish show-pony. It distends, stretching almost six-inches wide, and releases ");
-	if(flags["MET_KIRO"] != undefined ) output("a single squirt of cum big enough to make Kiro’s look like drops in a bucket");
+	if(metKiro()) output("a single squirt of cum big enough to make Kiro’s look like drops in a bucket");
 	else if(flags["NAYNA_BLOWN"] != undefined) output("a single squirt of cum big enough to make Nayna’s look like drops in a bucket");
 	else if(penny.hasCock()) output("a single squirt of cum big enough to make Penny’s look like drops in a bucket");
 	else if(flags["SUCKED_BRYNN"] != undefined || flags["DEEPTHROATED_BRYNN"] != undefined) output("a single squirt of cum big enough to make Brynn’s look like drops in a bucket");
@@ -1037,27 +1037,8 @@ public function uvetoMaglevStation():Boolean
 	
 	if (flags["UVIP_R10_PROBE_ACTIVE"] == undefined) addDisabledButton(0, "Probe");
 	else addButton(0, "Probe", move, "UVIP R10");
+	if(krymRespectsYou()) addButton(1,"Krym's Camp",move,"UVGR M4");
 
-	return false;
-}
-
-public function GlacialRiftPlateauCamp():Boolean
-{
-	output("\n\nThe eastern half of the area is dominated by what looks to be a pre-fab metal bunker, covered in tarps and reinforced with sandbags pressed against the walls. Radio antennae peek out from the roof around a solid, smoking chimney. There are no windows you can see, and the door is solid metal covered by a thick curtain of tanned hides. Unsurprisingly,");
-	if (flags["MET_KRYM"] != undefined) output(" Krym");
-	else output(" whoever lives here");
-	output(" is desperate to keep as warm as possible.");
-
-	output("\n\nSeveral colonial turrets have been set up around the perimeter, watching over the plains of ice stretching out in every direction.");
-	if (flags["MET_KRYM"] != undefined && hours >= 6 && hours <= 20)
-	{
-		output(" Krymhilde is patrolling the turret gun-line, making sure each one is functional despite the cold and wear from the constant storms. She");
-		//if {Respect have: 
-		//gives you a flirty grin over her shoulder as she works, and you see a little more spring make its way into her step as she works
-		output(" gives you a slight nod of acknowledgement as you wander.");
-	}
-	else if (hours <= 6 && hours <= 20) output(" A woman in white ceramic armor is patrolling the gun line, carrying a spear almost as tall as she is over one shoulder. She’s clearly human, if the head of blond hair and cream-pale skin are anything to go by. The lightningbolt patterns on her armor tell you she’s probably a member of the local Stormguard.");
-	
 	return false;
 }
 
@@ -1643,6 +1624,10 @@ public function fertilityPriestessFuckHerGoHard():void
 
 		output("\n\n<i>“Oooh, that’s the stuff!”</i> the priestess purrs, wrapping her hands around her packed belly. <i>“I can feel your little swimmers working already. Ah, strong enough to defeat me... strong enough to give me a litter of mighty kits!”</i>");
 
+		var tEnemy:Creature = CombatManager.getEnemyOfClass(MilodanFertilityPriestess);
+		var priestess:MilodanFertilityPriestess = tEnemy is MilodanFertilityPriestess ? tEnemy as MilodanFertilityPriestess : null;
+		if (priestess != null) priestess.loadInCunt(pc, 0);
+		
 		if (pc.virility() <= 0) output("\n\nWell, maybe not. But no need to tell her that!");
 		else pc.clearRut();
 	}
@@ -1713,6 +1698,10 @@ public function fertilityPriestessFuckHerSwitch():void
 
 			output("\n\n<i>“Too bad. You feel more virile than any male I’ve met,”</i> the priestess sighs, tweaking one of her nipples and shivering as your [pc.cock] shifts inside her.");
 		}
+
+		var tEnemy:Creature = CombatManager.getEnemyOfClass(MilodanFertilityPriestess);
+		var priestess:MilodanFertilityPriestess = tEnemy is MilodanFertilityPriestess ? tEnemy as MilodanFertilityPriestess : null;
+		if (priestess != null) priestess.loadInAss(pc);
 	}
 	output(" The cat-woman goans underneath you, starting to lick her fingers clean of her pussy-juices.");
 	if (pc.hasCock() && pc.hasKnot())
@@ -1777,6 +1766,9 @@ public function pcDunkedByFertilityPriestess(isRepeat:Boolean = false):void
 	userInterface.leftBarDefaults();
 	generateMap();
 	
+	var tEnemy:Creature = CombatManager.getEnemyOfClass(MilodanFertilityPriestess);
+	var priestess:MilodanFertilityPriestess = tEnemy is MilodanFertilityPriestess ? tEnemy as MilodanFertilityPriestess : null;
+
 	if (!isRepeat)
 	{
 		clearOutput();
@@ -1796,9 +1788,6 @@ public function pcDunkedByFertilityPriestess(isRepeat:Boolean = false):void
 		}
 
 		output("\n\n<i>“So falls our interloper. How sad you aliens are, when your weapons and magics fail you!”</i> the cat-woman declares. She grabs your chin and forces your gaze up, making you look her in the eye. <i>“Now it’s time to fulfil this ritual... one way or another.”</i>");
-
-		var tEnemy:Creature = CombatManager.getEnemyOfClass(MilodanFertilityPriestess);
-		var priestess:MilodanFertilityPriestess = tEnemy is MilodanFertilityPriestess ? tEnemy as MilodanFertilityPriestess : null;
 		if (priestess != null && priestess.malesRan)
 		{
 			output("\n\nThe woman <i>tsk</i>s her tongue, glancing around the barren chamber. Her male companions are nowhere to be seen. At least you managed that small victory before succumbing to her. Growling, the milodan woman grabs and throws you onto the altar, face-up and [pc.legOrLegs] flailing over the edge.");
@@ -1859,6 +1848,7 @@ public function pcDunkedByFertilityPriestess(isRepeat:Boolean = false):void
 		processTime(30+rand(15));
 		IncrementFlag("FERTILITY_PRIESTESSES_FUCKED");
 
+		if (priestess != null) priestess.loadInCunt(pc, 0);
 		pc.orgasm();
 		pc.clearRut();
 		CombatManager.genericLoss();

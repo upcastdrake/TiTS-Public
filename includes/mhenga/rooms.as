@@ -267,7 +267,7 @@ public function initMhengaRooms():void
 	rooms["EAST ESBETH EXIT"].planet = "PLANET: MHEN'GA";
 	rooms["EAST ESBETH EXIT"].system = "SYSTEM: ARA ARA";
 	rooms["EAST ESBETH EXIT"].westExit = "EAST ESBETH ENTRANCE";
-	rooms["EAST ESBETH EXIT"].eastExit = "JUNGLE EDGE";	
+	rooms["EAST ESBETH EXIT"].eastExit = "JUNGLE EDGE";
 	rooms["EAST ESBETH EXIT"].moveMinutes = 2;
 	rooms["EAST ESBETH EXIT"].addFlag(GLOBAL.OUTDOOR);
 	rooms["EAST ESBETH EXIT"].addFlag(GLOBAL.PUBLIC);
@@ -1416,12 +1416,27 @@ public function initMhengaRooms():void
 	rooms["A TURNING POINT"].planet = "PLANET: MHEN'GA";
 	rooms["A TURNING POINT"].system = "SYSTEM: ARA ARA";
 	//rooms["A TURNING POINT"].northExit = "";
-	//rooms["A TURNING POINT"].eastExit = "";
+	//rooms["A TURNING POINT"].eastExit = "CRASHYMCSATELLITEFACE";
 	rooms["A TURNING POINT"].southExit = "VALLEY DESCENT 1";
 	rooms["A TURNING POINT"].westExit = "DEEP JUNGLE 2";
 	rooms["A TURNING POINT"].addFlag(GLOBAL.OUTDOOR);
 	rooms["A TURNING POINT"].addFlag(GLOBAL.HAZARD);
 	rooms["A TURNING POINT"].addFlag(GLOBAL.JUNGLE);
+
+	// Special Stuff Goobygoob
+	rooms["CRASHYMCSATELLITEFACE"] = new RoomClass(this);
+	rooms["CRASHYMCSATELLITEFACE"].roomName = "A\nSATELLITE";
+	rooms["CRASHYMCSATELLITEFACE"].description = "There’s a great big crater plunged into the forest floor here, surrounded by the shattered husks of Mhen’gan trees that have been blasted back by the impact. Smoke rises lazily from the inside of the crater, emanating from a sphere of metal surrounded by cracked mirrored wings. A satellite!";
+	rooms["CRASHYMCSATELLITEFACE"].runOnEnter = satelliteBonus;
+	rooms["CRASHYMCSATELLITEFACE"].planet = "PLANET: MHEN'GA";
+	rooms["CRASHYMCSATELLITEFACE"].system = "SYSTEM: ARA ARA";
+	//rooms["CRASHYMCSATELLITEFACE"].northExit = "";
+	//rooms["CRASHYMCSATELLITEFACE"].eastExit = "";
+	//rooms["CRASHYMCSATELLITEFACE"].southExit = "VALLEY DESCENT 1";
+	rooms["CRASHYMCSATELLITEFACE"].westExit = "A TURNING POINT";
+	rooms["CRASHYMCSATELLITEFACE"].addFlag(GLOBAL.OUTDOOR);
+	rooms["CRASHYMCSATELLITEFACE"].addFlag(GLOBAL.HAZARD);
+	rooms["CRASHYMCSATELLITEFACE"].addFlag(GLOBAL.JUNGLE);
 
 	rooms["VALLEY DESCENT 1"] = new RoomClass(this);
 	rooms["VALLEY DESCENT 1"].roomName = "VALLEY\nDESCENT";

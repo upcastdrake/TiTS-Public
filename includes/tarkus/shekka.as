@@ -1209,7 +1209,7 @@ public function hugeEarShekkaFaps():void
 
 	output("\n\n");
 	if(pc.balls > 1) output("Your [pc.balls] are beyond their breaking point, quaking with otherworldly intensity. ");
-	else output("Your [pc.balls] are beyond its breaking point, quaking with otherworldly intensity. ");	
+	else output("Your [pc.balls] are beyond its breaking point, quaking with otherworldly intensity. ");
 	output("Any hope this orgasm could go on being denied any further is utterly quashed. ");
 	if(pc.cumQ() < 3000) output("Gallons");
 	else if(pc.cumQ() < 10000) output("Waves");
@@ -1232,7 +1232,7 @@ public function hugeEarShekkaFaps():void
 	addButton(0,"Next",pageTwoOfShekkaStuffs);
 }
 
-//{next page}
+// next page
 public function pageTwoOfShekkaStuffs():void
 {
 	clearOutput();

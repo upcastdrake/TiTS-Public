@@ -4092,7 +4092,7 @@ public function bessBuyShitPanties():void
 	bessBuyCIW(6, "Thong", Thong, "Thong", "Thong");
 	bessBuyCIW(7, "C-String", CString, "C-String", "C-String");
 	
-	addButton(14, "Back", talkToBessAboutAccessories);	
+	addButton(14, "Back", talkToBessAboutAccessories);
 }
 
 public function bessBuyShitAccessories():void
@@ -8527,6 +8527,8 @@ public function bessEvent18Response(response:String):void
 		output(" music playing.");
 		
 		output("\n\nDo you move and risk waking [bess.himHer] up?");
+		
+		processTime(180+rand(15));
 
 		// [Yes] [No]
 		clearMenu();
@@ -8545,7 +8547,7 @@ public function bessEvent18Yes():void
 	output("\n\nYou take off and leave [bess.himHer] to get re-oriented with a small chuckle. [bess.name] rubs [bess.hisHer] sleepy eyes before promptly curling up and going back to sleep.");
 
 	flags["BESS_EVENT_18"] = GetGameTimestamp();
-	processTime(180+rand(15));
+	processTime(1);
 
 	clearMenu();
 	addButton(0, "Next", mainGameMenu);
@@ -8570,6 +8572,7 @@ public function bessEvent18No():void
 
 	flags["BESS_EVENT_18"] = GetGameTimestamp();
 	processTime(180+rand(15));
+	restHeal();
 
 	clearMenu();
 	addButton(0, "Next", mainGameMenu);
@@ -11901,7 +11904,7 @@ public function bessGetDoggySelected(bTargetVag:Boolean):void
 			output("\n\n<i>“Oh NO, you’re not going anywhere,”</i> [bess.name] orders you, thrusting [bess.hisHer] cock even <i>deeper</i>, <i>“...You’re going to stay there and be knotted by my [bess.cockNoun], "+ bessPCSexName() +"!”</i>");
 			
 			output("\n\nYou tremble and flush as [bess.hisHer]’s knot swells and stretches your inner walls. You feel like an animal being mated");
-			if (pc.race().indexOf("ausar") != -1)
+			if (pc.isAusar())
 			{
 				output("; but as an ausar, it flicks your breeding switch. You pant with pleasure, your mind fogged up by thoughts of filling your");
 				if (bTargetVag) output(" pussy");

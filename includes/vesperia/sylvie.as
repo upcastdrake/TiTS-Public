@@ -910,7 +910,7 @@ public function moosyStoriesGo(drunklevelChange:Number = 1,newPage:Boolean = tru
 		//Merge
 		output("\n\nShaking her head, Sylvie sighs heavily. <i>“Luckily, nobody died. The vigilante took out their engines without decompressing a single compartment. The only injuries were from the slaves getting payback on their would-be masters. You should have seen them. Most of them were beaten black and blue, though there was a dzaan stuffed with enough cum to look half-past pregnant. Aside from that, she was untouched. I can only assume she found a pleasant way to handle her victim’s aggression, eh?”</i>");
 		output("\n\n");
-		if(flags["MET_KIRO"] == undefined) output("She must have figured a little fun with Kiro would be safer than staying with those she had wronged...");
+		if(metKiro()) output("She must have figured a little fun with Kiro would be safer than staying with those she had wronged...");
 		else output("She must have been a real whore to take that many loads...");
 		output(" <i>“Yeah.”</i>");
 		output("\n\nSylvie polishes off her beer with a resigned sigh. <i>“I guess at the end of the day we should just be glad that so many innocents were saved from a lifetime of suffering.”</i> She looks up at you");
@@ -1391,7 +1391,7 @@ public function sylvieSexyTimeIntro():void
 	generateMap();
 	processTime(1);
 	clearMenu();
-	sylvieSexMenu();	
+	sylvieSexMenu();
 }
 
 public function sylvieSexMenu():void
@@ -1427,7 +1427,7 @@ public function sylvieSexMenu():void
 	}
 	//[COMPLETE] [VenomKiss] Red Myr PCs only, kiss and lick her for an hour or two, making her cum like crazy.
 	if(pc.hasPerk("Myr Venom")) addButton(4,"Venom Kiss",redMyrSylvieFunz,undefined,"Venom Kiss","Teach Sylvie just how fun red Myr venom can be!");
-	else addDisabledButton(4,"Venom Kiss","Venom Kiss","You need to secrete red Myr venom in order to do this.");	
+	else addDisabledButton(4,"Venom Kiss","Venom Kiss","You need to secrete red Myr venom in order to do this.");
 	addButton(14,"Leave",leaveSylvieHighAndLessThanDryYaCunt);
 }
 public function sylvieForcyRouter():void
@@ -2561,7 +2561,7 @@ public function cleanUpPostRutSylvie():void
 {
 	clearOutput();
 	showName("SCRUBBA\nDUB DUB");
-	output("It only takes you a few minutes to satisfy your desire for cleanliness as thoroughly as your desire for an orgasm. <b>You’re no longer covered in Sylvie’s pheromonal juices!</b>");	
+	output("It only takes you a few minutes to satisfy your desire for cleanliness as thoroughly as your desire for an orgasm. <b>You’re no longer covered in Sylvie’s pheromonal juices!</b>");
 	pc.shower();
 	processTime(4);
 	clearMenu();

@@ -348,7 +348,7 @@ public function callWaitress():void
 	{
 		if(flags["EMBRY_TREATMENTS"] == 0)
 		{
-			embry.credits -= 5000;	
+			embry.credits -= 5000;
 			flags["EMBRY_TREATMENTS"]++;
 			if(flags["EMBRY_RELATIONSHIP"] == 3) firstTransitionForEmbry();
 			else notALoverOrTurnedDownSeeingTFsEmbryRunsUpToYouAgain();
@@ -2645,7 +2645,7 @@ public function embryAnalSex():void
 	output("\n\n<i>“M-my butt--you’re fingering my naughty butt--!”</i> [embry.name] breathily moans. You can see her eyes in the mirror, and she looks drunk on lust. Her [embry.breasts] rock back and forth as she passionately humps your sticky digits. When you slip a third inside, she lets out a delighted squeal. Her anus is stretched considerably around your fingers, making for quite a sight!");
 	output("\n\nWhen you start finger fucking her [embry.ass], [embry.name] can’t hold out any longer, and her whole body convulses with delight.");
 	if(flags["EMBRY_TOLD_YOU_LIKE_COCK"] != undefined && embry.hasCock()) output(" Her [embry.cock] jerks and messily shoots white, sticky ropes of spunk all over the side of the bench, firingly wildly in the air.");
-	//{if Embry.hasPussy:
+	// if Embry.hasPussy:
 	if(embry.hasVagina()) output(" Her cute, pink pussy spasmically squirts [embry.girlCum] everywhere. She makes an utter mess!");
 	//PC does not like peen and she does not have a pussy.
 	if(flags["EMBRY_TOLD_YOU_LIKE_COCK"] == undefined && !embry.hasVagina()) output(" She cums long and hard with your fingers buried in her [embry.asshole].");
@@ -2730,7 +2730,7 @@ public function embryAnalSex():void
 		if(embry.analVirgin)
 		{
 			output("totally deflowered");
-			embry.analVirgin = false;	
+			embry.analVirgin = false;
 		}
 		else output("utterly used");
 		output(". A sense of delicious conquest swells within you.");

@@ -54,7 +54,7 @@ public function showCandice():void
 	author("Savin");
 	if(flags["MET_CANDICE"] == undefined) showName("\nBARTENDER");
 	else showName("\nCANDICE");
-	showBust("CANDICE");		
+	showBust("CANDICE");
 }
 
 // Actually Buying a Drink
@@ -87,7 +87,7 @@ public function buyADrinkFromCandice(drink:String):void
 	{
 		pc.imbibeAlcohol(15);
 		pc.credits -= 15;
-		if(pc.race() == "ausar" || pc.race() == "half-ausar") pc.energy(5);
+		if(pc.isAusar()) pc.energy(5);
 	}
 	//[25] Miniature Rahn - 13
 	else if(drink == "Miniature Rahn")
@@ -181,14 +181,14 @@ public function reallySmashedEpiloguetoDrinkingWithCandicePartII():void
 		output("\n\nYou take a step off the ship and wipe the sweat from your brow. How the hell did that get in your bathroom, and why? What did you get up to while you were blacked out, anyway?");
 		output("\n\nAs you’re wondering, you hear a voice from overhead call out, <i>“");
 		//Normal Reaha
-		if(9999 == 9999) output("[pc.Master]! Heeeeelp!");
+		if(!reahaIsCured()) output("[pc.Master]! Heeeeelp!");
 		//if Treated Reaha: 
 		else if(chars["REAHA"].isTreated()) output("Hey! Up here!");
 		else output("[pc.name]! Heeeeelp!");
 		output("”</i>");
 		output("\n\nYou turn around and follow the sound up to the roof of your ship. Reaha’s sitting on the roof, buck naked");
 		//Normal & Treated
-		if(9999 == 9999 || chars["REAHA"].isTreated()) output(" as usual");
+		if(!reahaIsCured() || chars["REAHA"].isTreated()) output(" as usual");
 		output(", and shivering pitifully.");
 		output("\n\n<i>“C-can I come down now?”</i> she whines, <i>“It’s been hours!”</i>");
 		output("\n\nYou blink. <i>“Uh. Sure,”</i> you say, opening your arms to catch her. She comes plummeting down a moment later, and you both grunt as she flops into your waiting arms.");

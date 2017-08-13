@@ -525,7 +525,7 @@ public function karaAndShadeUnfinished():Boolean
 {
 	if(flags["SHADE_DEFEATED_WITH_KARA"] != undefined || flags["KARA_DEFEATED_WITH_SHADE"] != undefined || flags["LOST_TO_SHADE_WITH_KARA"] != undefined) return false;
 	if(flags["DISTRACTED_SHADE"] != undefined) return false;
-	if(flags["SHADE_AND_KARA_RESOLVED_THINGS_THEMSELVES"] != undefined) return false;	
+	if(flags["SHADE_AND_KARA_RESOLVED_THINGS_THEMSELVES"] != undefined) return false;
 	if(flags["MET_KARA"] == undefined) return false;
 	return true;
 
@@ -815,7 +815,7 @@ public function takeShadesHardlightPenisInYerBoot():void
 	if(x >= 0) output("pussy");
 	else output("ass");
 	output(" tantalizingly close to the glowing cock sprouting from her panties. She leans in, pushing your backside up off the bed and curling your spine in as she goes, ");
-	if(pc.raceShort() == "kaithrit") output("making full use of your feline flexibility");
+	if(pc.catDog("nyan", "bork") == "nyan") output("making full use of your feline flexibility");
 	else output("putting your flexibility to the limit");
 	output(" as she crawls up your prone body, trailing kisses up your belly, [pc.chest], and neck. Finally, she reaches your [pc.lips], pressing hers to yours and slowly urging your mouth open, just wide enough to let her tongue slip in.");
 
@@ -1315,7 +1315,7 @@ public function shadeMenu():void
 	if(pc.lust() >= 33) addButton(1,"Sex",askShade4Sex,undefined,"Sex","Get into some mischief under the covers.");
 	else addDisabledButton(1,"Sex","Sex","You aren’t aroused enough for that.");
 	addButton(2,"Appearance",shadeAppearance,undefined,"Appearance","Take a good look at the cat-girl bounty hunter.");
-	addButton(14,"Leave",mainGameMenu);	
+	addButton(14,"Leave",mainGameMenu);
 }
 
 //Appearance
@@ -1645,7 +1645,7 @@ public function runesYouTurdShade():void
 	else output(" The temple took me in after the docs were finished with me. Uveto is");
 	output(" a protectorate-world, and I’d be in big trouble for sneaking in, they said, as if stowing away on a ship was nothing. I didn’t have much choice but to stay with them: I was weak, half-starved, and didn’t stop shivering for days.”</i>");
 	output("\n\nShade finishes her drink, knocking back the rest of the mug and slamming it down on the table, hard enough to make you jump. <i>“Better them than the ausar, I guess. ");
-	if(pc.raceShort() == "ausar") output("Uh, no offense. ");
+	if(pc.isAusar()) output("Uh, no offense. ");
 	output("Planet was lousy with them, all heavy-set and snowy-haired. I guess they must have been the main colonists, since there were only a few hundred humans I ever saw. No kaithrit in sight, but then, we tend to colonize in the opposite direction of the Federation if we can. Not much good blood between ausar and kaithrit... heh, says the woman with a half-ausar kid. Sorry, I’m rambling, I know. You wanted to know about these runes, right?");
 	if(flags["SHADE_ON_UVETO"] == undefined) output(" Well, the church that took me in was some kind of old-Terra-style pagan sect, thought they’d found the promised land on a stormy ball of ice. Neo-norse, some of the locals called ‘em. I don’t know much about terran mythology, but the cult - the Stormguard - were obsessed with their thunder god. They told me the only way I’d ever get off the planet was by joining them, to squeeze through the same legal loopholes they did to exist on an otherwise locked-down world. I figured, ‘what the hell?’, and joined up.");
 	output("”</i>");

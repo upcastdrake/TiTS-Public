@@ -223,7 +223,7 @@ public function setBeatriceName(arg:String):void
 	else if(pc.isMischievous()) output(" <i>“A pleasure to meet such a beauty.”</i>");
 
 	output("\n\n");
-	//{if chose Mrs. Reasner:
+	// if chose Mrs. Reasner:
 	if(arg == "Mrs. Reasner") output("<i>“My, how nice to meet such a polite young [pc.manWoman].”</i> ");
 	output("She shakes your hand. Her skin is cool to the touch, and her grip is gentle, yet firm.");
 
@@ -446,7 +446,7 @@ public function sellSaviciteToBeatrice():void
 }
 
 //Any Amount
-public function actuallySellSaviciteToBeatrice(quantity:Number):void
+public function actuallySellSaviciteToBeatrice(quantity:int):void
 {
 	clearOutput();
 	showBeatrice();
@@ -973,7 +973,7 @@ public function suckleBeatriceTitttttaaaaaays():void
 	output("\n\nAfterward, with a belly full of breastmilk, you give each thick, inch-long brown nipple a parting kiss. " + flags["BEA_TITLE"] + " whispers softly, <i>“Did you drink your fill?”</i>");
 	output("\n\nYou nod, but even though you’ve finished, you ask if you could just stay like this for a while longer. Her smile is the only answer you need.");
 	processTime(30);
-	pc.milkInMouth(bea);	
+	pc.milkInMouth(bea);
 	pc.lust(4);
 	IncrementFlag("BEA_SEXED");
 	clearMenu();

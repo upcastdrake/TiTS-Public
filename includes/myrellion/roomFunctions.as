@@ -60,7 +60,6 @@ public function flyToMyrellion():void
 	//This check ensures older save files will re-unlock the relevant entries.
 	CodexManager.unlockEntry("Red Myr");
 	CodexManager.unlockEntry("Gold Myr");
-	CodexManager.unlockEntry("Scarlet Federation");
 }
 
 public function myrellionLeaveShip():Boolean
@@ -617,7 +616,11 @@ public function noManzLandBonus():Boolean
 public function gildenmereStreetBonus():Boolean
 {
 	if(orangeMyrSightingBonus()) return true;
-	if(currentLocation == "717") genesModsExteriorRoomDecorator();
+	switch(currentLocation)
+	{
+		case "717": genesModsExteriorRoomDecorator(); break;
+		case "720": entiteExteriorShitz(); break;
+	}
 	if(flags["IRELLIA_QUEST_STATUS"] == 1 && (rand(35) == 0 || debug))
 	{
 		unificationInvitationEventProcInGildenmere();
@@ -1188,9 +1191,11 @@ public function antOrgyPartDues(voluntary:Boolean):void
 	var pp:PregnancyPlaceholder = new PregnancyPlaceholder();
 	if (!pp.hasVagina()) pp.createVagina();
 	pp.girlCumType = GLOBAL.FLUID_TYPE_HONEY;
+	myrellionSSTDChance(pp);
 	
 	processTime(13);
 	pc.lust(25);
+	pp.loadInCunt(pc, 0);
 	pc.girlCumInMouth(pp);
 	applyPussyDrenched(pc);
 	applyPussyDrenched(pc);

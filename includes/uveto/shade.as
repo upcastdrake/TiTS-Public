@@ -597,7 +597,7 @@ public function shadeUvetoBarMenu():void
 		else addDisabledButton(1, "Sex", "Sex", "You aren’t aroused enough for that.");
 	}
 	addButton(2, "Appearance", shadeAppearance,undefined, "Appearance", "Take a good look at the cat-girl bounty hunter.");
-	addButton(14, "Leave", mainGameMenu);	
+	addButton(14, "Leave", mainGameMenu);
 }
 
 public function askShade4SexOnUveto():void
@@ -658,10 +658,10 @@ public function meetingShadeAtHouse(btnSlot:int = 1):void
 		
 		//if(flags["SHADE_IS_YER_SIS"] != -1) flags["NAV_DISABLED"] = undefined;
 		if(flags["SHADE_IS_YER_SIS"] == 0)
-			{
-				response = "lover sibling decision";
-				tooltip = "This is Shade’s house. Time to make a decision about where you want the pair of you to go.";
-			}
+		{
+			response = "lover sibling decision";
+			tooltip = "This is Shade’s house. Time to make a decision about where you want the pair of you to go.";
+		}
 		else return;
 	}
 	// Lover Shade (Sibling Unrevealed)
