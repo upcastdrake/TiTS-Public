@@ -373,13 +373,57 @@ public function willowDateSexyTime():void
 	output("\n\n<i>“So... What do you wanna do now?”</i> she asks with a sultry expression that leaves no doubt as to what she means.");
 	output("\n\nYou raise an eyebrow at her provocative look and step forward, grabbing her around the waist to pull her closer, your lips locking with hers. Her hands go up to your face, eyes drifting closed as she purrs softly, eagerly returning the kiss.");
 	output("\n\nYour hands hook under her shirt, pulling it up and over her head before tossing it to the side, and then dropping lower to squeeze her ass. Unbuckling her jeans, you pull them down and off, tossing them to join her shirt. Her bra and panties follow soon after, and she looks at you while panting slightly, eyes wide and bright, her naked body yours to do with as you please.");
-	
-	addButton(0, "Vaginal", willowSexVaginal, undefined, "", "");
-	addButton(1, "Anal", willowSexAnal, undefined, "", "");
+
+	if (flags["WILLOW_GRAV"] == 1)
+	{
+		
+	}
+	else
+	{
+		addButton(0, "Next", willowGenericSexyTimeLead);
+	}
 }
 
+public function willowGenericSexyTimeLead():void
+{
+	clearOutput();
+	author("Archangel99");
+	showWillow();
+	clearMenu();
+	
+	output("You tilt your head at her. She did mention that she liked being tied down and dominated… Perhaps you ");
+	if (pc.hasItem(new GravCuffs()) && flags["WILLOW_GRAV"] != undefined)
+	{
+		addButton(0, "Vaginal", willowSexVaginal, true, "", "");
+		addButton(0, "Anal", willowSexAnal, true, "", "");
+	}
+	if (pc.hasItem(new GravCuffs()))
+	{
+		output("could use those GravCuffs of yours on her… she'd definitely like it. Do you use them?");
+		addButton(0, "Yes", , undefined, "", "");
+		addButton(1, "No", , undefined, "", "");
+		addButton(2, "Always", , undefined, "", "");
+	}
+	else
+	{
+		output("should get a few things from that bondage shop on Tavros to play around with?");
+		addButton(0, "Vaginal", willowSexVaginal, false, "", "");
+		addButton(1, "Anal", willowSexAnal, false, "", "");
+	}
+}
 public function willowSexVaginal():void
 {
+	clearOutput();
+	author("Archangel99");
+	showWillow(true);
+	clearMenu();
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
